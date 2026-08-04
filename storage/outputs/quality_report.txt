@@ -1,0 +1,1 @@
+{'quality_score': 100, 'original_lines': 2, 'cleaned_lines': 2, 'removed_lines': 0}
