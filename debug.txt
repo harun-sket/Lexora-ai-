@@ -1,0 +1,4 @@
+========================================
+ Rebuilding Lexora Foundation
+========================================
+./rebuild_lexora.sh: line 9: normalize,: command not found

@@ -1,0 +1,27 @@
+Traceback (most recent call last):
+  File "/workspaces/Lexora-ai-/tests/test_symspell.py", line 24, in <module>
+    from languages.tamil.spell.symspell_engine import (
+ImportError: cannot import name 'correct_word' from 'languages.tamil.spell.symspell_engine' (/workspaces/Lexora-ai-/languages/tamil/spell/symspell_engine.py)
+============================================================
+PROJECT ROOT
+/workspaces/Lexora-ai-
+============================================================
+
+Python Path:
+
+/workspaces/Lexora-ai-
+/workspaces/Lexora-ai-/tests
+/usr/local/python/3.12.1/lib/python312.zip
+/usr/local/python/3.12.1/lib/python3.12
+/usr/local/python/3.12.1/lib/python3.12/lib-dynload
+/home/codespace/.local/lib/python3.12/site-packages
+/usr/local/python/3.12.1/lib/python3.12/site-packages
+
+Trying import...
+
+
+❌ IMPORT FAILED
+
+
+Traceback saved to:
+/workspaces/Lexora-ai-/symspell_traceback.txt

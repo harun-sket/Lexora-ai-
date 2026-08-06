@@ -1,0 +1,7 @@
+Project root: /workspaces/Lexora-ai-
+Traceback (most recent call last):
+  File "/workspaces/Lexora-ai-/tests/run_sample.py", line 12, in <module>
+    from languages.tamil.pipeline import TamilPipeline
+  File "/workspaces/Lexora-ai-/languages/tamil/pipeline.py", line 3, in <module>
+    from languages.tamil.normalize import normalize_text
+ImportError: cannot import name 'normalize_text' from 'languages.tamil.normalize' (/workspaces/Lexora-ai-/languages/tamil/normalize/__init__.py)
