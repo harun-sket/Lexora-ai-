@@ -1,28 +1,5 @@
 Traceback (most recent call last):
-  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/pytesseract/pytesseract.py", line 275, in run_tesseract
-    proc = subprocess.Popen(cmd_args, **subprocess_args())
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/python/3.12.1/lib/python3.12/subprocess.py", line 1026, in __init__
-    self._execute_child(args, executable, preexec_fn, close_fds,
-  File "/usr/local/python/3.12.1/lib/python3.12/subprocess.py", line 1950, in _execute_child
-    raise child_exception_type(errno_num, err_msg, err_filename)
-FileNotFoundError: [Errno 2] No such file or directory: 'tesseract'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
   File "<string>", line 1, in <module>
-  File "/workspaces/Lexora-ai-/languages/tamil/lexora_ocr/ocr_engine.py", line 23, in process_image
-    text = pytesseract.image_to_string(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/pytesseract/pytesseract.py", line 486, in image_to_string
-    return {
-           ^
-  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/pytesseract/pytesseract.py", line 489, in <lambda>
-    Output.STRING: lambda: run_and_get_output(*args),
-                           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/pytesseract/pytesseract.py", line 352, in run_and_get_output
-    run_tesseract(**kwargs)
-  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/pytesseract/pytesseract.py", line 280, in run_tesseract
-    raise TesseractNotFoundError()
-pytesseract.pytesseract.TesseractNotFoundError: tesseract is not installed or it's not in your PATH. See README file for more information.
+  File "/workspaces/Lexora-ai-/languages/tamil/lexora_ocr/ocr_engine.py", line 11, in <module>
+    from languages.tamil.lexora_ocr.providers.ocr_tamil_provider import (
+ImportError: cannot import name 'run_ocr_tamil' from 'languages.tamil.lexora_ocr.providers.ocr_tamil_provider' (/workspaces/Lexora-ai-/languages/tamil/lexora_ocr/providers/ocr_tamil_provider.py)

@@ -1,1 +1,15 @@
-{'quality_score': 100, 'original_lines': 2, 'cleaned_lines': 2, 'removed_lines': 0}
+LEXORA AI QUALITY REPORT
+========================================
+
+Encoding           : utf-8
+Encoding Valid     : True
+Duplicates Removed : 1
+Noise Patterns     : 3
+
+Language Analysis
+--------------------
+Tamil    : 87.36%
+English  : 2.3%
+Digits   : 10.34%
+
+Quality Score : 93%

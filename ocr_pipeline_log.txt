@@ -1,0 +1,11 @@
+
+===== RAW OCR =====
+'கும்\u200c ழ்\u200c\n‘shutterstock.com - 2251460891.'
+
+===== CORRECTED =====
+'கும்\u200c ழ்\u200c\n‘shutterstock.com - 2251460891.'
+
+===== CLEAN =====
+'கும்\u200c ழ்\u200c\n‘shutterstock.com - 2251460891.'
+
+Saved: storage/outputs/clean_output.txt

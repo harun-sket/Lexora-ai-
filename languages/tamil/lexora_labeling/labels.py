@@ -1,0 +1,15 @@
+"""
+Lexora AI
+
+Supported Labels
+"""
+
+WORD = "WORD"
+
+NUMBER = "NUMBER"
+
+PUNCTUATION = "PUNCTUATION"
+
+SYMBOL = "SYMBOL"
+
+UNKNOWN = "UNKNOWN"

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspaces/Lexora-ai-/run.py", line 3, in <module>
+    from brain.router import route_file
+  File "/workspaces/Lexora-ai-/brain/router.py", line 11, in <module>
+    from languages.tamil.lexora_ocr.ocr_pipeline import (
+  File "/workspaces/Lexora-ai-/languages/tamil/lexora_ocr/ocr_pipeline.py", line 18, in <module>
+    from languages.tamil.lexora_ocr.ocr_engine import (
+  File "/workspaces/Lexora-ai-/languages/tamil/lexora_ocr/ocr_engine.py", line 20, in <module>
+    from languages.tamil.lexora_ocr.providers.tesseract_provider import (
+ModuleNotFoundError: No module named 'languages.tamil.lexora_ocr.providers.tesseract_provider'

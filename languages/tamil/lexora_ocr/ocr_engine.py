@@ -1,80 +1,38 @@
 """
-Lexora AI
-Tamil OCR Engine v0.2
+Lexora AI OCR Engine
 
-Image preprocessing + Tamil OCR
+Provider: OCR Tamil
 """
 
-from pathlib import Path
-
-from PIL import Image, ImageEnhance, ImageFilter
-import pytesseract
-
-
-def preprocess_image(image_path):
-
-    image = Image.open(
-        image_path
-    )
-
-    # Convert to grayscale
-    image = image.convert(
-        "L"
-    )
-
-    # Increase contrast
-    image = ImageEnhance.Contrast(
-        image
-    ).enhance(2)
-
-    # Sharpen text
-    image = image.filter(
-        ImageFilter.SHARPEN
-    )
-
-    return image
+from languages.tamil.lexora_ocr.providers.ocr_tamil_provider import (
+    extract_text,
+)
 
 
-def process_image(
-    image_path: str
-):
+def process_image(image_path: str):
+    """
+    Process an image using the OCR Tamil provider.
+    """
 
-    image = preprocess_image(
-        image_path
-    )
-
-    config = "--psm 6"
-
-    text = pytesseract.image_to_string(
-        image,
-        lang="tam+eng",
-        config=config
-    )
+    text = extract_text(image_path)
 
     return {
-        "source_image": image_path,
-        "extracted_text": text.strip(),
-        "character_count": len(text.strip())
+        "raw_ocr": text,
+        "provider": "ocr_tamil",
+        "image": image_path,
     }
 
 
-def save_text(
-    text,
-    output_path
-):
+def save_text(text: str, output_path: str):
+    """
+    Save OCR text to a UTF-8 text file.
+    """
 
-    path = Path(
-        output_path
-    )
+    with open(
+        output_path,
+        "w",
+        encoding="utf-8",
+    ) as file:
+        file.write(text)
 
-    path.parent.mkdir(
-        parents=True,
-        exist_ok=True
-    )
-
-    path.write_text(
-        text,
-        encoding="utf-8"
-    )
-
-    return path
+    return output_path
