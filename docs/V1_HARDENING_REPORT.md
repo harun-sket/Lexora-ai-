@@ -328,3 +328,170 @@ V1.0.
 The remaining major production question is concurrency and resource
 behavior under multiple simultaneous users.
 
+
+---
+
+# 13. Concurrency Stress Testing
+
+## Phase 1 — Moderate Workload Concurrency
+
+Lexora was tested with multiple simultaneous requests using a moderate
+input workload.
+
+| Concurrent Requests | Passed | Failed | Wall Time | Slowest Request | Peak Memory | Result |
+|---:|---:|---:|---:|---:|---:|:---:|
+| 2 | 2 | 0 | 1.184 s | 1.127 s | 19.53 MB | PASS |
+| 5 | 5 | 0 | 1.091 s | 0.959 s | 13.81 MB | PASS |
+| 10 | 10 | 0 | 1.567 s | 1.214 s | 21.85 MB | PASS |
+| 20 | 20 | 0 | 2.979 s | 2.216 s | 30.61 MB | PASS |
+
+All requests completed successfully and returned valid unified output
+structures.
+
+Result: PASS.
+
+---
+
+# 14. Concurrency × Workload Stress Testing
+
+Phase 2 combined concurrent execution with a substantially larger
+workload.
+
+The tested workload was approximately 100,000 repeated words per
+request.
+
+| Concurrent Requests | Passed | Failed | Wall Time | Average Latency | Slowest Request | Peak Memory | Result |
+|---:|---:|---:|---:|---:|---:|---:|:---:|
+| 5 | 5 | 0 | 11.006 s | 10.255 s | 10.804 s | 177.81 MB | PASS |
+| 10 | 10 | 0 | 17.721 s | 15.947 s | 17.307 s | 336.93 MB | PASS |
+| 20 | 20 | 0 | 35.552 s | 31.673 s | 34.260 s | 638.38 MB | PASS |
+
+### Phase 2 Maximum Tested Concurrency
+
+The largest Phase 2 workload successfully completed was:
+
+- 20 concurrent requests
+- approximately 100,000 words per request
+- 20/20 successful requests
+- 0 failures
+- 35.552 seconds wall time
+- 34.260 seconds slowest request
+- 638.38 MB measured peak memory
+
+Result: PASS.
+
+---
+
+# 15. Concurrency Scaling Observations
+
+The Phase 2 results demonstrate that Lexora remained stable as
+concurrency increased.
+
+However, latency increased with concurrency:
+
+- 5 concurrent requests: 10.804 s slowest
+- 10 concurrent requests: 17.307 s slowest
+- 20 concurrent requests: 34.260 s slowest
+
+Measured memory also increased with concurrency:
+
+- 5 concurrent requests: 177.81 MB
+- 10 concurrent requests: 336.93 MB
+- 20 concurrent requests: 638.38 MB
+
+This indicates that Lexora remains operational under the tested
+concurrent workload, while resource usage and latency increase as
+concurrency rises.
+
+This behavior should be considered when designing production
+concurrency limits and request queues.
+
+---
+
+# 16. Concurrency Interpretation
+
+The concurrency tests demonstrate successful concurrent execution in
+the current test environment.
+
+They do NOT establish a guaranteed production concurrency limit.
+
+The results are workload-specific and depend on:
+
+- CPU availability
+- available RAM
+- Python/runtime behavior
+- operating-system scheduling
+- thread execution
+- deployment configuration
+- other services sharing the environment
+
+Production limits should therefore be determined from additional
+infrastructure-level testing.
+
+---
+
+# 17. Current Hardening Status Update
+
+| Test | Status |
+|---|:---:|
+| Core engine | PASS |
+| Frequency dictionary | PASS |
+| POS | PASS |
+| NER | PASS |
+| Unified engine | PASS |
+| Unified output contract | PASS |
+| Medium input stress | PASS |
+| Large input stress | PASS |
+| Empty input | PASS |
+| Whitespace input | PASS |
+| Unicode robustness | PASS |
+| Emoji input | PASS |
+| Mixed scripts | PASS |
+| Combining characters | PASS |
+| Zero-width characters | PASS |
+| Long token stress | PASS |
+| Invalid input types | PASS |
+| Pathological repetition | PASS |
+| Moderate concurrency | PASS |
+| Concurrency × workload | PASS |
+
+---
+
+# 18. Next Hardening Stage
+
+The next stage is resource-boundary testing.
+
+Planned workloads include:
+
+- 10 concurrent × 250K-word input
+- 10 concurrent × 500K-word input
+- 20 concurrent × 250K-word input
+
+The objective is to identify the transition between:
+
+SAFE → DEGRADED → UNSAFE
+
+These results will help inform:
+
+- maximum request size
+- maximum token count
+- concurrency limits
+- timeout values
+- queueing strategy
+- daily usage limits
+- monthly usage limits
+- infrastructure sizing
+
+The tests should be stopped if the environment becomes unstable or
+resource exhaustion is observed.
+
+---
+
+# 19. Evidence Preservation
+
+Raw concurrency benchmark output is preserved separately from this
+document.
+
+The hardening report records summarized engineering results, while raw
+output files provide the original benchmark evidence.
+
