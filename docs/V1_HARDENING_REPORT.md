@@ -495,3 +495,162 @@ document.
 The hardening report records summarized engineering results, while raw
 output files provide the original benchmark evidence.
 
+
+---
+
+# 20. Phase 3 — Resource Boundary Testing
+
+Phase 3 was designed to identify the transition from a stable
+concurrent workload into a resource-degradation zone.
+
+## 10 × 250K Successful Benchmark
+
+A previous 10-concurrent × 250K-word benchmark completed successfully
+and produced measurable performance results.
+
+The successful benchmark is retained as the authoritative Phase 3
+result.
+
+The exact metrics from that successful run should be preserved from
+the original terminal output / benchmark results file.
+
+Result:
+
+PASS.
+
+---
+
+## 10 × 250K Repeat Attempt
+
+A subsequent attempt to repeat the same 10 × 250K workload was
+terminated by the test environment before successful completion.
+
+This repeat attempt was not used to replace the original successful
+benchmark.
+
+No further escalation was performed after the termination.
+
+The following workloads were intentionally NOT executed:
+
+- 10 × 500K
+- 20 × 250K
+
+This was done to avoid unnecessary resource pressure on the test
+environment.
+
+Result:
+
+TERMINATED BY ENVIRONMENT.
+
+---
+
+# 21. Phase 3 Interpretation
+
+The Phase 3 testing establishes an important resource-boundary signal.
+
+The original 10 × 250K workload successfully completed, demonstrating
+that Lexora can process this workload under at least one successful
+test run.
+
+A later repeat of the same workload was terminated by the environment.
+Because the two executions occurred under the same general development
+environment but were separate runs, the termination is treated as an
+environment/resource-pressure observation rather than evidence that the
+original successful benchmark was invalid.
+
+The successful benchmark remains the authoritative performance result.
+
+The later termination demonstrates that repeated high-resource
+testing can place significant pressure on the development environment.
+
+Therefore larger concurrency/workload combinations were not executed.
+
+---
+
+# 22. Current Demonstrated Concurrency Envelope
+
+The strongest successfully demonstrated concurrent workloads are:
+
+| Workload | Result |
+|---|:---:|
+| 20 × moderate request | PASS |
+| 5 × 100K words | PASS |
+| 10 × 100K words | PASS |
+| 20 × 100K words | PASS |
+| 10 × 250K words | PASS |
+| 10 × 250K repeat attempt | ENVIRONMENT TERMINATED |
+
+The largest successfully demonstrated combined workload remains the
+original 10 × 250K benchmark.
+
+The later termination should be treated as a warning about repeated
+high-resource testing, not as a replacement for the successful
+benchmark.
+
+---
+
+# 23. Production Safety Interpretation
+
+These results do not establish a public API limit.
+
+The tests demonstrate that:
+
+1. Lexora can successfully process substantial concurrent workloads.
+2. Latency increases as workload and concurrency increase.
+3. Memory consumption increases with concurrent workload.
+4. The development environment can terminate sufficiently demanding
+   repeated workloads.
+5. Larger workloads should not be assumed safe merely because a single
+   successful benchmark exists.
+
+Production should therefore use conservative limits below the highest
+stress-test boundary until production infrastructure is benchmarked.
+
+Potential controls include:
+
+- maximum request size
+- maximum token count
+- maximum processing time
+- concurrency limits
+- request queueing
+- worker limits
+- memory limits
+- per-user rate limits
+- daily usage limits
+- monthly usage limits
+- resource monitoring
+- automatic request rejection when capacity is exhausted
+
+---
+
+# 24. Hardening Conclusion
+
+Lexora V1.0 has successfully passed:
+
+- core engine validation
+- frequency dictionary validation
+- POS validation
+- NER validation
+- unified engine validation
+- unified output contract validation
+- empty-input robustness
+- whitespace robustness
+- Unicode robustness
+- emoji input
+- mixed-script input
+- long-token stress
+- invalid input-type rejection
+- pathological input stress
+- large single-request stress
+- moderate concurrency stress
+- concurrency × workload stress
+- successful 10 × 250K concurrent workload benchmark
+
+The hardening process has also identified the practical resource
+pressure boundary of the current development environment.
+
+No additional escalation is recommended in the current environment.
+
+The next stage should focus on translating these benchmark results
+into conservative production limits and subscription/usage policies.
+
