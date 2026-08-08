@@ -1,0 +1,9 @@
+================================================================================
+LEXORA UNIFIED CONTRACT TRACEBACK
+================================================================================
+
+Traceback (most recent call last):
+  File "/workspaces/Lexora-ai-/tests/test_unified_contract.py", line 107, in main
+    assert isinstance(item["lemma"], str)
+AssertionError
+

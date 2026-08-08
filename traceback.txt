@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspaces/Lexora-ai-/tests/run_lemma_test.py", line 7, in <module>
+    from languages.tamil.lemma import lemmatize
+  File "/workspaces/Lexora-ai-/languages/tamil/lemma.py", line 5, in <module>
+    from languages.tamil.morphology import analyze
+  File "/workspaces/Lexora-ai-/languages/tamil/morphology/__init__.py", line 27
+    @dataclass
+IndentationError: unexpected indent

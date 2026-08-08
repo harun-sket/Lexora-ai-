@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspaces/Lexora-ai-/tests/test_unified_contract.py", line 138, in <module>
+    main()
+  File "/workspaces/Lexora-ai-/tests/test_unified_contract.py", line 107, in main
+    assert isinstance(item["lemma"], str)
+AssertionError
+======================================================================
+LEXORA UNIFIED OUTPUT CONTRACT
+======================================================================
+
+❌ TEST FAILED
+
+Traceback saved to:
+/workspaces/Lexora-ai-/tests/tracebacks/unified_contract_20260808_061120.txt
+
+Open it with:
+cat /workspaces/Lexora-ai-/tests/tracebacks/unified_contract_20260808_061120.txt

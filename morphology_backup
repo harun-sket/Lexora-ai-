@@ -1,0 +1,80 @@
+     1	"""
+     2	Lexora Tamil Morphology Package
+     3	"""
+     4	
+     5	from .analyzer import (
+     6	    MorphAnalysis,
+     7	    TamilMorphAnalyzer,
+     8	    analyze,
+     9	)
+    10	
+    11	__all__ = [
+    12	    "MorphAnalysis",
+    13	    "TamilMorphAnalyzer",
+    14	    "analyze",
+    15	]
+    16	cat << 'EOF' > languages/tamil/token.py
+    17	from __future__ import annotations
+    18	
+    19	from dataclasses import dataclass, field
+    20	
+    21	from languages.tamil.lexicon import (
+    22	    exists,
+    23	        frequency,
+    24	        )
+    25	
+    26	
+    27	        @dataclass
+    28	        class TamilToken:
+    29	            """
+    30	                Core language object used throughout Lexora.
+    31	
+    32	                    Every module enriches this object.
+    33	                        """
+    34	
+    35	                            text: str
+    36	
+    37	                                # Lexicon
+    38	                                    known: bool = False
+    39	                                        frequency: int = 0
+    40	
+    41	                                            # Morphology
+    42	                                                root: str | None = None
+    43	                                                    suffixes: list[str] = field(default_factory=list)
+    44	
+    45	                                                        # POS
+    46	                                                            pos: str | None = None
+    47	
+    48	                                                                # NER
+    49	                                                                    entity: str | None = None
+    50	
+    51	                                                                        def enrich(self):
+    52	
+    53	                                                                                self.known = exists(self.text)
+    54	                                                                                        self.frequency = frequency(self.text)
+    55	
+    56	                                                                                                return self
+    57	
+    58	                                                                                                    def to_dict(self):
+    59	
+    60	                                                                                                            return {
+    61	                                                                                                                        "text": self.text,
+    62	                                                                                                                                    "known": self.known,
+    63	                                                                                                                                                "frequency": self.frequency,
+    64	                                                                                                                                                            "root": self.root,
+    65	                                                                                                                                                                        "suffixes": self.suffixes,
+    66	                                                                                                                                                                                    "pos": self.pos,
+    67	                                                                                                                                                                                                "entity": self.entity,
+    68	                                                                                                                                                                                                        }
+    69	
+    70	
+    71	                                                                                                                                                                                                        def create_token(word: str) -> TamilToken:
+    72	                                                                                                                                                                                                            return TamilToken(word).enrich()
+    73	
+    74	
+    75	                                                                                                                                                                                                            __all__ = [
+    76	                                                                                                                                                                                                                "TamilToken",
+    77	                                                                                                                                                                                                                    "create_token",
+    78	                                                                                                                                                                                                                    ]
+    79	                                                                                                                                                                                                                    EOF
+    80	                                                                                                                                                                                                                    

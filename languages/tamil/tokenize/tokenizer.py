@@ -4,24 +4,35 @@ import re
 from typing import List
 
 # Tamil Unicode block
-TAMIL = r"\u0B80-\u0BFF"
+TAMIL_BLOCK = "\u0B80-\u0BFF"
 
-# Words (Tamil + English + numbers) OR punctuation
+# Token pattern:
+# - Tamil words
+# - English words
+# - Numbers
+# - Individual punctuation
 TOKEN_PATTERN = re.compile(
-    rf"[{TAMIL}A-Za-z0-9]+|[^\s{TAMIL}A-Za-z0-9]",
+    rf"[{TAMIL_BLOCK}A-Za-z0-9]+|[^\s{TAMIL_BLOCK}A-Za-z0-9]",
     re.UNICODE,
 )
 
 
 class TamilTokenizer:
     """
-    Lightweight tokenizer for Lexora.
+    Lexora Tokenizer
 
-    Splits:
-    - Tamil words
-    - English words
-    - Numbers
-    - Punctuation
+    Responsibilities
+    ----------------
+    - Split Tamil words
+    - Split English words
+    - Split numbers
+    - Preserve punctuation
+
+    Does NOT:
+    - Normalize
+    - Spell-correct
+    - Lemmatize
+    - POS tag
     """
 
     def tokenize(self, text: str) -> List[str]:
@@ -31,5 +42,14 @@ class TamilTokenizer:
         return TOKEN_PATTERN.findall(text)
 
 
+_tokenizer = TamilTokenizer()
+
+
 def tokenize(text: str) -> List[str]:
-    return TamilTokenizer().tokenize(text)
+    return _tokenizer.tokenize(text)
+
+
+__all__ = [
+    "TamilTokenizer",
+    "tokenize",
+]
