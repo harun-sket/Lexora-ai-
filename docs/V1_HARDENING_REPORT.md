@@ -2,18 +2,18 @@
 
 ## Overview
 
-Lexora V1.0 underwent input-size stress testing to determine how
-the unified language intelligence engine behaves under progressively
-larger workloads.
+Lexora V1.0 underwent progressive hardening and stress testing to
+identify resource limits, malformed-input behavior, Unicode handling,
+tokenization behavior, and failure boundaries.
 
-The purpose of this testing was not to establish the public API limit
-directly, but to identify the practical resource characteristics of
-the engine and provide evidence for future API and infrastructure
-limits.
+The purpose of these tests is to establish engineering evidence for
+V1.0 reliability and to guide production API limits.
+
+These tests are not themselves production capacity guarantees.
 
 ---
 
-# Input Stress Testing
+# 1. Input Size Stress Testing
 
 ## Medium Stress Test
 
@@ -33,11 +33,9 @@ limits.
 | 500,000 | 2,000,000 | 34.81 MB | 34.628 s | 958.69 MB | PASS |
 | 1,000,000 | 4,000,000 | 69.62 MB | 69.432 s | 1,918.27 MB | PASS |
 
----
+### Maximum Tested Workload
 
-# Maximum Tested Workload
-
-The largest successfully tested workload was:
+The largest successfully tested single workload was:
 
 - 1,000,000 words
 - 4,000,000 tokens
@@ -51,99 +49,282 @@ This is the current Lexora single-request stress-test record.
 
 ---
 
-# Scaling Observations
+# 2. Empty and Whitespace Robustness
 
-Processing time increased approximately linearly with token count
-within the tested range.
+The unified engine was tested with:
 
-Peak memory also increased approximately linearly.
+- empty string
+- single space
+- multiple spaces
+- newline
+- tabs
+- mixed whitespace
+
+All cases returned a valid unified dictionary.
+
+Observed contract for empty/whitespace input:
+
+- `engine` present
+- `version` present
+- `original` preserved
+- `tokens` returned as an empty list
+- `analysis` returned as an empty list
+
+Result: PASS.
 
 ---
 
-# Production Safety Interpretation
+# 3. Unicode Robustness
 
-The successful 1M-word test must NOT be interpreted as a recommended
-public API request size.
+The engine was tested with:
 
-A single 1M-word request consumed approximately 1.9 GB of peak memory
+- Tamil text
+- Tamil sentences
+- Tamil + English
+- multiple writing systems
+- emoji
+- numbers
+- punctuation
+- combining characters
+- zero-width characters
+- mixed Unicode content
+
+All tested cases completed successfully and returned valid output.
+
+Result: PASS.
+
+---
+
+# 4. Long Token Stress Testing
+
+The engine was tested with uninterrupted Tamil-character strings:
+
+| Token Length | Processing Time | Result |
+|---:|---:|:---:|
+| 1,000 characters | 0.062 s | PASS |
+| 10,000 characters | ~0.000 s | PASS |
+| 100,000 characters | ~0.000 s | PASS |
+| 500,000 characters | 0.002 s | PASS |
+| 1,000,000 characters | 0.002 s | PASS |
+
+The 1,000,000-character input completed successfully.
+
+The extremely small timings at larger sizes should not be interpreted
+as zero processing cost; they are below the useful resolution of the
+simple benchmark timer.
+
+Result: PASS.
+
+---
+
+# 5. Invalid Input Type Testing
+
+The engine was intentionally called with values that violate the
+string-input contract.
+
+Tested:
+
+- `None`
+- integer
+- float
+- boolean
+- list
+- dictionary
+- tuple
+- bytes
+
+Every invalid value was rejected consistently with:
+
+`TypeError: text must be a string`
+
+This is considered correct behavior because invalid input is rejected
+at the engine boundary rather than producing corrupted output.
+
+Result: PASS.
+
+---
+
+# 6. Pathological Input Testing
+
+The engine was tested against highly repetitive and tokenization-heavy
+inputs.
+
+| Case | Characters | Tokens | Time | Result |
+|---|---:|---:|---:|:---:|
+| Tamil repeated 10K | 60,000 | 10,000 | 0.132 s | PASS |
+| Tamil repeated 100K | 600,000 | 100,000 | 0.537 s | PASS |
+| Punctuation repeated 100K | 1,000,000 | 900,000 | 5.245 s | PASS |
+| Emoji repeated 100K | 400,000 | 300,000 | 1.468 s | PASS |
+| Mixed repeated 100K | 1,300,000 | 500,000 | 2.956 s | PASS |
+| Single Tamil character ×1M | 1,000,000 | 1 | 0.002 s | PASS |
+| Alternating Tamil characters ×500K | 1,000,000 | 1 | 0.002 s | PASS |
+
+### Notable Observation
+
+The punctuation-heavy case produced approximately 900,000 tokens from
+1,000,000 characters and completed in 5.245 seconds.
+
+This represents one of the most token-heavy pathological workloads
+tested so far.
+
+Result: PASS.
+
+### Tokenization Observation
+
+The uninterrupted 1,000,000-character Tamil strings produced a single
+token.
+
+This is documented as observed tokenizer behavior and is not treated
+as a failure by itself.
+
+---
+
+# 7. Unified Engine Contract
+
+The unified engine has successfully demonstrated:
+
+- stable dictionary output
+- stable engine identification
+- stable version reporting
+- predictable empty-input behavior
+- predictable invalid-type rejection
+- list-based token output
+- list-based analysis output
+
+The unified output contract has also been tested independently.
+
+Result: PASS.
+
+---
+
+# 8. Current V1.0 Hardening Status
+
+| Component / Test | Status |
+|---|:---:|
+| Core engine | PASS |
+| Frequency dictionary | PASS |
+| POS | PASS |
+| NER | PASS |
+| Unified engine | PASS |
+| Unified output contract | PASS |
+| Medium input stress | PASS |
+| Large input stress | PASS |
+| Empty input | PASS |
+| Whitespace input | PASS |
+| Unicode robustness | PASS |
+| Emoji input | PASS |
+| Mixed scripts | PASS |
+| Combining characters | PASS |
+| Zero-width characters | PASS |
+| Long token stress | PASS |
+| Invalid input types | PASS |
+| Pathological repetition | PASS |
+
+---
+
+# 9. Production Safety Interpretation
+
+The successful large-input tests must NOT be interpreted as recommended
+public API request sizes.
+
+The largest tested request consumed approximately 1.9 GB of peak memory
 and required approximately 69 seconds.
 
-Therefore the public API should enforce substantially smaller request
-limits.
+Multiple concurrent requests of that magnitude could consume large
+amounts of system memory.
 
-Potential controls include:
+Therefore production should enforce substantially smaller limits.
+
+Recommended controls include:
 
 - maximum request size
 - maximum token count
 - maximum processing time
 - request timeout
 - concurrency limits
+- per-user rate limits
 - per-user daily limits
-- monthly usage limits
-- request queueing
-- memory/resource monitoring
+- monthly usage quotas
+- queueing where appropriate
+- memory monitoring
+- CPU monitoring
+- request cancellation
+
+The final limits should be selected using realistic workload and
+concurrency benchmarks.
 
 ---
 
-# Current V1.0 Hardening Status
+# 10. Important Benchmark Limitation
 
-Core engine                 PASS
-Frequency dictionary        PASS
-POS                         PASS
-NER                         PASS
-Unified engine              PASS
-Unified output contract     PASS
-Medium input stress         PASS
-Large input stress          PASS
-
-Largest tested workload:
-
-1,000,000 words / 4,000,000 tokens
-
-Result:
-
-PASS
-
----
-
-# Important Limitation
-
-These benchmarks demonstrate behavior in the test environment only.
+These benchmarks demonstrate behavior in the current test environment.
 
 They do not constitute a guarantee of production performance.
 
-Production capacity depends on:
+Production behavior depends on:
 
 - CPU
 - available RAM
-- Python/runtime behavior
+- Python/runtime configuration
 - deployment configuration
 - concurrent requests
-- infrastructure limits
 - database/network overhead
-- other running services
+- other services sharing the environment
+- operating-system resource limits
 
 ---
 
-# Next Hardening Stage
+# 11. Next Hardening Stage
 
-After input-size testing, Lexora should be tested against:
+The next major stage is concurrency testing.
 
-1. Empty input
-2. Whitespace-only input
-3. Unicode edge cases
-4. Combining characters
-5. Zero-width characters
-6. Emoji
-7. Mixed scripts
-8. Numbers
-9. Punctuation-heavy input
-10. Extremely long individual tokens
-11. Invalid or unexpected input types
-12. Concurrent requests
-13. Repeated requests
-14. Timeout behavior
-15. API rate limiting
+Planned progression:
 
-The objective is to convert every discovered weakness into a
-regression test before the V1.0 release.
+1. 2 concurrent requests
+2. 5 concurrent requests
+3. 10 concurrent requests
+4. 20 concurrent requests
+5. resource monitoring
+6. timeout behavior
+7. rate-limit behavior
+8. repeated-request behavior
+
+The goal is to identify the safe concurrency boundary before
+production launch.
+
+Every discovered weakness should become a regression test.
+
+---
+
+# 12. Evidence Files
+
+Raw benchmark outputs are preserved separately from this report.
+
+The Markdown report provides the engineering summary.
+
+Raw test output files should remain unchanged so future benchmark
+comparisons can be made against the original results.
+
+---
+
+# Conclusion
+
+Lexora V1.0 has successfully passed progressively larger input,
+Unicode, malformed-type, long-token, and pathological-input tests.
+
+The current largest single-request benchmark is:
+
+1,000,000 words
+4,000,000 tokens
+69.62 MB input
+69.432 seconds
+1,918.27 MB peak memory
+
+Result: PASS.
+
+The current evidence indicates that the engine has a strong baseline for
+V1.0.
+
+The remaining major production question is concurrency and resource
+behavior under multiple simultaneous users.
+
