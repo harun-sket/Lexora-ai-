@@ -1,0 +1,42 @@
+======================================================================
+LEXORA INPUT ROBUSTNESS TEST
+======================================================================
+======================================================================
+CASE: empty
+INPUT: ''
+STATUS: PASS
+OUTPUT TYPE: dict
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': '', 'tokens': [], 'analysis': []}
+======================================================================
+CASE: space
+INPUT: ' '
+STATUS: PASS
+OUTPUT TYPE: dict
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': ' ', 'tokens': [], 'analysis': []}
+======================================================================
+CASE: spaces
+INPUT: '     '
+STATUS: PASS
+OUTPUT TYPE: dict
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': '     ', 'tokens': [], 'analysis': []}
+======================================================================
+CASE: newline
+INPUT: '\n'
+STATUS: PASS
+OUTPUT TYPE: dict
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': '\n', 'tokens': [], 'analysis': []}
+======================================================================
+CASE: tabs
+INPUT: '\t\t\t'
+STATUS: PASS
+OUTPUT TYPE: dict
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': '\t\t\t', 'tokens': [], 'analysis': []}
+======================================================================
+CASE: mixed whitespace
+INPUT: ' \n\t  \n '
+STATUS: PASS
+OUTPUT TYPE: dict
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': ' \n\t  \n ', 'tokens': [], 'analysis': []}
+======================================================================
+ROBUSTNESS TEST COMPLETE
+======================================================================

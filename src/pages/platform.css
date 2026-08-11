@@ -1,0 +1,928 @@
+/* ============================================================
+   LEXORA — PLATFORM
+   ============================================================ */
+
+:root {
+  --black: #050608;
+  --panel: #0b0d12;
+  --panel-2: #10131a;
+
+  --text: #f5f6f8;
+  --muted: #858892;
+  --dim: #50535b;
+
+  --line: rgba(255,255,255,.075);
+  --line-bright: rgba(255,255,255,.14);
+
+  --green: #65ff9a;
+  --blue: #6874ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+
+  background: var(--black);
+
+  color: var(--text);
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(
+      700px 500px at 75% 0%,
+      rgba(104,116,255,.10),
+      transparent 68%
+    ),
+    radial-gradient(
+      600px 500px at 10% 55%,
+      rgba(101,255,154,.035),
+      transparent 70%
+    ),
+    var(--black);
+}
+
+
+/* ============================================================
+   GRID
+   ============================================================ */
+
+body::before {
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.018) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.018) 1px,
+      transparent 1px
+    );
+
+  background-size: 64px 64px;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      black,
+      transparent 92%
+    );
+}
+
+
+/* ============================================================
+   NAV
+   ============================================================ */
+
+.platform-navbar {
+  position: sticky;
+
+  top: 0;
+
+  z-index: 50;
+
+  min-height: 74px;
+
+  padding:
+    0 30px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  border-bottom:
+    1px solid var(--line);
+
+  background:
+    rgba(5,6,8,.78);
+
+  backdrop-filter:
+    blur(20px);
+}
+
+.platform-logo {
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: 800;
+
+  letter-spacing: .22em;
+}
+
+.platform-nav-links {
+  display: flex;
+
+  align-items: center;
+
+  gap: 25px;
+}
+
+.platform-nav-links a {
+  color: var(--muted);
+
+  font-size: 11px;
+
+  transition: color .2s ease;
+}
+
+.platform-nav-links a:hover,
+.platform-nav-links a.active {
+  color: white;
+}
+
+.platform-nav-actions {
+  display: flex;
+
+  gap: 9px;
+}
+
+.platform-btn {
+  min-height: 42px;
+
+  padding:
+    0 15px;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 9px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.platform-btn:hover {
+  transform: translateY(-2px);
+}
+
+.platform-btn-primary {
+  color: #050608;
+
+  background: white;
+
+  border:
+    1px solid white;
+}
+
+.platform-btn-ghost {
+  color: #d9dbe0;
+
+  background:
+    rgba(255,255,255,.025);
+
+  border:
+    1px solid var(--line);
+}
+
+
+/* ============================================================
+   MAIN
+   ============================================================ */
+
+.platform-main {
+  position: relative;
+
+  z-index: 2;
+
+  max-width: 1240px;
+
+  margin: 0 auto;
+
+  padding:
+    85px 30px 110px;
+}
+
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.platform-hero {
+  max-width: 900px;
+
+  margin-bottom: 80px;
+}
+
+.platform-kicker {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding:
+    9px 13px;
+
+  color: #7c7f87;
+
+  background:
+    rgba(255,255,255,.02);
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 999px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: .17em;
+}
+
+.platform-kicker::before {
+  content: "";
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: var(--green);
+
+  box-shadow:
+    0 0 14px
+    rgba(101,255,154,.65);
+}
+
+.platform-hero h1 {
+  margin:
+    25px 0 20px;
+
+  font-size:
+    clamp(55px, 8vw, 96px);
+
+  line-height: .9;
+
+  letter-spacing: -.075em;
+}
+
+.platform-hero h1 span {
+  display: block;
+
+  color: #5e616a;
+}
+
+.platform-hero p {
+  max-width: 690px;
+
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 16px;
+
+  line-height: 1.7;
+}
+
+.platform-actions {
+  margin-top: 30px;
+
+  display: flex;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+}
+
+
+/* ============================================================
+   ARCHITECTURE
+   ============================================================ */
+
+.platform-architecture {
+  display: grid;
+
+  grid-template-columns:
+    1.1fr .9fr;
+
+  gap: 15px;
+
+  margin-bottom: 15px;
+}
+
+.platform-architecture-main {
+  position: relative;
+
+  min-height: 400px;
+
+  padding: 30px;
+
+  overflow: hidden;
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 19px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.012)
+    );
+}
+
+.platform-architecture-main::after {
+  content: "";
+
+  position: absolute;
+
+  width: 400px;
+  height: 400px;
+
+  right: -200px;
+  bottom: -220px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(104,116,255,.13),
+      transparent 70%
+    );
+}
+
+.platform-label {
+  color: var(--dim);
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: .16em;
+}
+
+.platform-architecture-main h2 {
+  max-width: 550px;
+
+  margin:
+    15px 0 12px;
+
+  font-size: 31px;
+
+  letter-spacing: -.045em;
+}
+
+.platform-architecture-main p {
+  max-width: 540px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+
+  line-height: 1.7;
+}
+
+
+/* ============================================================
+   PIPELINE
+   ============================================================ */
+
+.pipeline {
+  position: relative;
+
+  z-index: 2;
+
+  margin-top: 55px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 8px;
+}
+
+.pipeline-step {
+  min-height: 105px;
+
+  padding: 15px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 10px;
+
+  background:
+    rgba(255,255,255,.025);
+}
+
+.pipeline-number {
+  color: var(--green);
+
+  font-family: monospace;
+
+  font-size: 8px;
+}
+
+.pipeline-title {
+  margin-top: 12px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+}
+
+.pipeline-text {
+  margin-top: 5px;
+
+  color: var(--dim);
+
+  font-size: 8px;
+
+  line-height: 1.5;
+}
+
+
+/* ============================================================
+   SIDE CARD
+   ============================================================ */
+
+.platform-side-card {
+  padding: 30px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 19px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.035),
+      rgba(255,255,255,.012)
+    );
+}
+
+.platform-side-card h3 {
+  margin:
+    13px 0 10px;
+
+  font-size: 23px;
+
+  letter-spacing: -.04em;
+}
+
+.platform-side-card p {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 11px;
+
+  line-height: 1.65;
+}
+
+.platform-stat {
+  margin-top: 28px;
+
+  padding-top: 20px;
+
+  border-top:
+    1px solid var(--line);
+}
+
+.platform-stat strong {
+  display: block;
+
+  font-size: 30px;
+
+  letter-spacing: -.05em;
+}
+
+.platform-stat span {
+  color: var(--dim);
+
+  font-family: monospace;
+
+  font-size: 7px;
+
+  letter-spacing: .1em;
+}
+
+
+/* ============================================================
+   CAPABILITIES
+   ============================================================ */
+
+.platform-section-header {
+  margin:
+    80px 0 25px;
+}
+
+.platform-section-header .platform-label {
+  margin-bottom: 10px;
+}
+
+.platform-section-header h2 {
+  margin: 0;
+
+  font-size: 32px;
+
+  letter-spacing: -.05em;
+}
+
+.platform-section-header p {
+  max-width: 600px;
+
+  margin-top: 10px;
+
+  color: var(--muted);
+
+  font-size: 11px;
+
+  line-height: 1.6;
+}
+
+.platform-capabilities {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 14px;
+}
+
+.platform-capability {
+  min-height: 190px;
+
+  padding: 24px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 15px;
+
+  background:
+    rgba(255,255,255,.02);
+
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    background .25s ease;
+}
+
+.platform-capability:hover {
+  transform:
+    translateY(-4px);
+
+  border-color:
+    var(--line-bright);
+
+  background:
+    rgba(255,255,255,.035);
+}
+
+.capability-icon {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+
+  place-items: center;
+
+  color: var(--green);
+
+  background:
+    rgba(101,255,154,.055);
+
+  border:
+    1px solid
+    rgba(101,255,154,.11);
+
+  border-radius: 9px;
+
+  font-family: monospace;
+
+  font-size: 9px;
+}
+
+.platform-capability h3 {
+  margin:
+    19px 0 8px;
+
+  font-size: 15px;
+}
+
+.platform-capability p {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 10px;
+
+  line-height: 1.65;
+}
+
+
+/* ============================================================
+   DEVELOPERS
+   ============================================================ */
+
+.platform-developer {
+  margin-top: 15px;
+
+  padding: 30px;
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(104,116,255,.055),
+      rgba(255,255,255,.012)
+    );
+
+  display: grid;
+
+  grid-template-columns: .8fr 1.2fr;
+
+  gap: 40px;
+
+  align-items: center;
+}
+
+.platform-developer h2 {
+  margin:
+    12px 0;
+
+  font-size: 28px;
+
+  letter-spacing: -.045em;
+}
+
+.platform-developer p {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 11px;
+
+  line-height: 1.65;
+}
+
+.code-window {
+  overflow: hidden;
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 12px;
+
+  background:
+    #07090d;
+}
+
+.code-window-top {
+  height: 35px;
+
+  padding:
+    0 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  border-bottom:
+    1px solid var(--line);
+}
+
+.code-dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #3e4149;
+}
+
+.code-window pre {
+  margin: 0;
+
+  padding: 22px;
+
+  overflow-x: auto;
+
+  color: #aeb2bc;
+
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+
+  font-size: 10px;
+
+  line-height: 1.8;
+}
+
+.code-highlight {
+  color: var(--green);
+}
+
+
+/* ============================================================
+   BOTTOM CTA
+   ============================================================ */
+
+.platform-cta {
+  margin-top: 80px;
+
+  padding:
+    55px 35px;
+
+  text-align: center;
+
+  border:
+    1px solid var(--line);
+
+  border-radius: 20px;
+
+  background:
+    radial-gradient(
+      500px 250px at 50% 100%,
+      rgba(101,255,154,.06),
+      transparent 70%
+    ),
+    rgba(255,255,255,.018);
+}
+
+.platform-cta h2 {
+  margin: 0;
+
+  font-size: 39px;
+
+  letter-spacing: -.06em;
+}
+
+.platform-cta p {
+  max-width: 520px;
+
+  margin:
+    13px auto 25px;
+
+  color: var(--muted);
+
+  font-size: 11px;
+
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.platform-footer {
+  margin-top: 80px;
+
+  padding-top: 20px;
+
+  border-top:
+    1px solid var(--line);
+
+  display: flex;
+
+  justify-content: space-between;
+
+  color: #41434a;
+
+  font-family: monospace;
+
+  font-size: 7px;
+
+  letter-spacing: .12em;
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+  .platform-nav-links {
+    display: none;
+  }
+
+  .platform-architecture {
+    grid-template-columns: 1fr;
+  }
+
+  .platform-capabilities {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .platform-developer {
+    grid-template-columns: 1fr;
+  }
+
+  .pipeline {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .platform-navbar {
+    padding:
+      0 16px;
+  }
+
+  .platform-main {
+    padding:
+      55px 16px 75px;
+  }
+
+  .platform-hero h1 {
+    font-size: 54px;
+  }
+
+  .platform-hero p {
+    font-size: 14px;
+  }
+
+  .platform-architecture-main,
+  .platform-side-card,
+  .platform-developer {
+    padding: 22px;
+  }
+
+  .platform-architecture-main h2 {
+    font-size: 26px;
+  }
+
+  .platform-capabilities {
+    grid-template-columns: 1fr;
+  }
+
+  .pipeline {
+    grid-template-columns: 1fr;
+  }
+
+  .platform-cta {
+    padding:
+      40px 20px;
+  }
+
+  .platform-cta h2 {
+    font-size: 30px;
+  }
+
+  .platform-footer {
+    flex-direction: column;
+
+    gap: 8px;
+  }
+
+}

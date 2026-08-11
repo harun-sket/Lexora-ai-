@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Lexora — Documentation</title>
+
+<style>
+:root{
+  --bg:#050608;
+  --panel:#090b0f;
+  --panel2:#0c0e12;
+  --text:#f4f4f5;
+  --muted:#858991;
+  --dim:#555962;
+  --line:rgba(255,255,255,.075);
+  --line2:rgba(255,255,255,.12);
+  --green:#8dffbf;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-2;
+
+  background:
+    radial-gradient(
+      900px 450px at 50% -10%,
+      rgba(255,255,255,.065),
+      transparent 70%
+    );
+}
+
+body:after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+
+  opacity:.15;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    );
+
+  background-size:56px 56px;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      black,
+      transparent 90%
+    );
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button{
+  font:inherit;
+}
+
+/* =========================
+   NAV
+========================= */
+
+.nav{
+  position:sticky;
+  top:0;
+  z-index:100;
+
+  height:70px;
+
+  border-bottom:1px solid var(--line);
+
+  background:rgba(5,6,8,.86);
+
+  backdrop-filter:blur(18px);
+}
+
+.nav-inner{
+  width:min(1260px,calc(100% - 40px));
+  height:100%;
+  margin:auto;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:-.06em;
+}
+
+.logo span{
+  margin-left:9px;
+
+  color:#555962;
+
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.12em;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:26px;
+}
+
+.nav-links a{
+  color:#656871;
+  font-size:10px;
+  font-weight:600;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+  color:white;
+}
+
+.nav-cta{
+  padding:8px 12px;
+
+  border:1px solid var(--line2);
+  border-radius:7px;
+
+  color:#aaa;
+
+  font-size:9px;
+}
+
+.nav-cta:hover{
+  color:white;
+  background:rgba(255,255,255,.05);
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.layout{
+  width:min(1260px,calc(100% - 40px));
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    215px
+    minmax(0,720px)
+    190px;
+
+  gap:55px;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+  position:sticky;
+  top:70px;
+
+  height:calc(100vh - 70px);
+
+  padding-top:40px;
+}
+
+.sidebar-label{
+  margin-bottom:14px;
+
+  color:#44474e;
+
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.18em;
+}
+
+.side-links{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.side-links a{
+  padding:8px 10px;
+
+  border-left:1px solid transparent;
+
+  color:#686b73;
+
+  font-size:9px;
+}
+
+.side-links a:hover{
+  color:white;
+}
+
+.side-links a.active{
+  border-left-color:#fff;
+
+  color:white;
+
+  background:
+    rgba(255,255,255,.035);
+}
+
+.side-group{
+  margin-top:30px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+  min-width:0;
+  padding:80px 0 120px;
+}
+
+.kicker{
+  color:#555962;
+
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.19em;
+}
+
+h1{
+  margin:17px 0 18px;
+
+  font-size:
+    clamp(42px,6vw,68px);
+
+  line-height:.95;
+
+  letter-spacing:-.075em;
+}
+
+.lead{
+  max-width:610px;
+
+  color:#858890;
+
+  font-size:13px;
+  line-height:1.8;
+}
+
+.divider{
+  height:1px;
+  margin:55px 0;
+
+  background:var(--line);
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.doc-section{
+  scroll-margin-top:100px;
+  margin-bottom:90px;
+}
+
+.section-number{
+  color:#4e5158;
+
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.14em;
+}
+
+h2{
+  margin:10px 0 12px;
+
+  font-size:28px;
+
+  letter-spacing:-.055em;
+}
+
+h3{
+  margin:35px 0 10px;
+
+  font-size:16px;
+
+  letter-spacing:-.025em;
+}
+
+p{
+  color:#7d8088;
+
+  font-size:11px;
+
+  line-height:1.8;
+}
+
+ul{
+  padding-left:19px;
+}
+
+li{
+  margin:8px 0;
+
+  color:#777a82;
+
+  font-size:11px;
+  line-height:1.7;
+}
+
+/* =========================
+   CALLOUT
+========================= */
+
+.callout{
+  margin:25px 0;
+
+  padding:18px 19px;
+
+  border:1px solid var(--line);
+
+  border-left:2px solid #777;
+
+  border-radius:9px;
+
+  background:
+    rgba(255,255,255,.018);
+}
+
+.callout-title{
+  margin-bottom:5px;
+
+  color:#ddd;
+
+  font-size:9px;
+  font-weight:700;
+}
+
+.callout p{
+  margin:0;
+
+  font-size:9px;
+}
+
+/* =========================
+   CODE
+========================= */
+
+.code{
+  position:relative;
+
+  margin:18px 0;
+
+  border:1px solid var(--line);
+
+  border-radius:11px;
+
+  overflow:hidden;
+
+  background:#080a0d;
+}
+
+.code-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:10px 13px;
+
+  border-bottom:1px solid var(--line);
+
+  color:#555962;
+
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.1em;
+}
+
+.copy{
+  padding:5px 8px;
+
+  border:1px solid var(--line);
+
+  border-radius:5px;
+
+  background:transparent;
+
+  color:#777a82;
+
+  font-family:monospace;
+  font-size:7px;
+
+  cursor:pointer;
+}
+
+.copy:hover{
+  color:white;
+}
+
+pre{
+  margin:0;
+  padding:18px;
+
+  overflow-x:auto;
+
+  color:#aeb2bb;
+
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    monospace;
+
+  font-size:9px;
+  line-height:1.75;
+}
+
+.method{
+  color:white;
+}
+
+.endpoint{
+  color:#858991;
+}
+
+.green{
+  color:var(--green);
+}
+
+/* =========================
+   ENDPOINT
+========================= */
+
+.endpoint-card{
+  margin:25px 0;
+
+  border:1px solid var(--line);
+
+  border-radius:12px;
+
+  overflow:hidden;
+
+  background:rgba(255,255,255,.015);
+}
+
+.endpoint-head{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  padding:16px 18px;
+
+  border-bottom:1px solid var(--line);
+}
+
+.method-badge{
+  padding:5px 7px;
+
+  border:1px solid rgba(141,255,191,.2);
+  border-radius:5px;
+
+  color:var(--green);
+
+  background:rgba(141,255,191,.035);
+
+  font-family:monospace;
+  font-size:7px;
+  font-weight:700;
+}
+
+.path{
+  color:#ddd;
+
+  font-family:monospace;
+  font-size:9px;
+}
+
+.endpoint-body{
+  padding:20px;
+}
+
+.endpoint-description{
+  margin:0 0 18px;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table{
+  width:100%;
+
+  border-collapse:collapse;
+
+  margin-top:20px;
+}
+
+.table th{
+  color:#50535a;
+
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.1em;
+
+  text-align:left;
+}
+
+.table td,
+.table th{
+  padding:13px 10px;
+
+  border-bottom:1px solid var(--line);
+}
+
+.table td{
+  color:#747780;
+
+  font-size:9px;
+}
+
+.table code{
+  color:#c7c9ce;
+}
+
+/* =========================
+   RIGHT TOC
+========================= */
+
+.toc{
+  position:sticky;
+  top:110px;
+
+  height:max-content;
+
+  padding-top:48px;
+}
+
+.toc-label{
+  margin-bottom:12px;
+
+  color:#41444b;
+
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.15em;
+}
+
+.toc a{
+  display:block;
+
+  padding:6px 0;
+
+  color:#565960;
+
+  font-size:8px;
+}
+
+.toc a:hover{
+  color:white;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+  margin-top:100px;
+
+  padding-top:20px;
+
+  border-top:1px solid var(--line);
+
+  display:flex;
+  justify-content:space-between;
+
+  color:#41444b;
+
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.08em;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:1050px){
+
+  .layout{
+    grid-template-columns:
+      190px
+      minmax(0,1fr);
+
+    gap:35px;
+  }
+
+  .toc{
+    display:none;
+  }
+
+}
+
+@media(max-width:760px){
+
+  .nav-links{
+    display:none;
+  }
+
+  .layout{
+    display:block;
+  }
+
+  .sidebar{
+    position:relative;
+
+    height:auto;
+
+    padding:22px 0;
+
+    border-bottom:1px solid var(--line);
+  }
+
+  .side-links{
+    display:grid;
+
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .side-group{
+    margin-top:20px;
+  }
+
+  .content{
+    padding-top:55px;
+  }
+
+  h1{
+    font-size:45px;
+  }
+
+  .footer{
+    flex-direction:column;
+    gap:8px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAV
+========================= -->
+
+<nav class="nav">
+
+<div class="nav-inner">
+
+<a href="/dashboard.html" class="logo">
+LEXORA
+<span>DOCS</span>
+</a>
+
+<div class="nav-links">
+
+<a href="/dashboard.html">
+Workspace
+</a>
+
+<a href="/api.html">
+API
+</a>
+
+<a href="/docs.html" class="active">
+Docs
+</a>
+
+</div>
+
+<a href="/api.html" class="nav-cta">
+API REFERENCE →
+</a>
+
+</div>
+
+</nav>
+
+
+<!-- =========================
+     DOCUMENTATION
+========================= -->
+
+<div class="layout">
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="sidebar-label">
+DOCUMENTATION
+</div>
+
+<nav class="side-links">
+
+<a href="#overview" class="active">
+Overview
+</a>
+
+<a href="#quickstart">
+Quick start
+</a>
+
+<a href="#authentication">
+Authentication
+</a>
+
+</nav>
+
+
+<div class="side-group">
+
+<div class="sidebar-label">
+API
+</div>
+
+<nav class="side-links">
+
+<a href="#intelligence">
+Intelligence
+</a>
+
+<a href="#datasets">
+Datasets
+</a>
+
+<a href="#responses">
+Responses
+</a>
+
+<a href="#errors">
+Errors
+</a>
+
+</nav>
+
+</div>
+
+
+<div class="side-group">
+
+<div class="sidebar-label">
+RESOURCES
+</div>
+
+<nav class="side-links">
+
+<a href="/api.html">
+API Reference
+</a>
+
+<a href="/dashboard.html">
+Workspace
+</a>
+
+</nav>
+
+</div>
+
+</aside>
+
+
+<!-- CONTENT -->
+
+<main class="content">
+
+
+<!-- OVERVIEW -->
+
+<section
+  id="overview"
+  class="doc-section"
+>
+
+<div class="kicker">
+LEXORA DEVELOPER PLATFORM
+</div>
+
+<h1>
+Build with
+intelligence.
+</h1>
+
+<p class="lead">
+Lexora provides language intelligence
+infrastructure for applications,
+AI systems and data pipelines.
+Send language data through a simple
+developer API and receive structured
+results.
+</p>
+
+<div class="callout">
+
+<div class="callout-title">
+API V1
+</div>
+
+<p>
+HTTPS · JSON · Bearer authentication
+</p>
+
+</div>
+
+</section>
+
+
+<div class="divider"></div>
+
+
+<!-- QUICK START -->
+
+<section
+  id="quickstart"
+  class="doc-section"
+>
+
+<div class="section-number">
+01 / QUICK START
+</div>
+
+<h2>
+Make your first request.
+</h2>
+
+<p>
+Every Lexora request uses HTTPS and
+JSON. Authenticate using your Lexora
+API key and send your input to the
+intelligence endpoint.
+</p>
+
+
+<div class="code">
+
+<div class="code-head">
+
+<span>
+CURL
+</span>
+
+<button
+  class="copy"
+  onclick="copyCode('quickCode')"
+>
+COPY
+</button>
+
+</div>
+
+<pre id="quickCode"><span class="method">curl</span> https://api.lexora.ai/v1/intelligence \
+  -H <span class="green">"Authorization: Bearer YOUR_API_KEY"</span> \
+  -H <span class="green">"Content-Type: application/json"</span> \
+  -d '{
+    "text": "Analyse this document.",
+    "language": "en"
+  }'</pre>
+
+</div>
+
+
+<h3>
+Base URL
+</h3>
+
+<div class="code">
+
+<pre>https://api.lexora.ai</pre>
+
+</div>
+
+</section>
+
+
+<!-- AUTH -->
+
+<section
+  id="authentication"
+  class="doc-section"
+>
+
+<div class="section-number">
+02 / AUTHENTICATION
+</div>
+
+<h2>
+Secure every request.
+</h2>
+
+<p>
+Lexora uses API keys to authenticate
+server-to-server requests. Include
+your key in the Authorization header.
+</p>
+
+
+<div class="code">
+
+<div class="code-head">
+AUTHORIZATION
+</div>
+
+<pre>Authorization: Bearer YOUR_API_KEY</pre>
+
+</div>
+
+
+<div class="callout">
+
+<div class="callout-title">
+Keep your API key private.
+</div>
+
+<p>
+Never expose secret API keys in
+browser JavaScript, public repositories
+or client-side applications.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- INTELLIGENCE -->
+
+<section
+  id="intelligence"
+  class="doc-section"
+>
+
+<div class="section-number">
+03 / INTELLIGENCE
+</div>
+
+<h2>
+Language intelligence.
+</h2>
+
+<p>
+Analyze language through one unified
+endpoint. Provide text, language and
+the intelligence tasks you need.
+</p>
+
+
+<div class="endpoint-card">
+
+<div class="endpoint-head">
+
+<span class="method-badge">
+POST
+</span>
+
+<span class="path">
+/v1/intelligence
+</span>
+
+</div>
+
+<div class="endpoint-body">
+
+<p class="endpoint-description">
+Run language intelligence tasks on
+an input document or text payload.
+</p>
+
+
+<table class="table">
+
+<thead>
+
+<tr>
+<th>
+FIELD
+</th>
+
+<th>
+TYPE
+</th>
+
+<th>
+DESCRIPTION
+</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>
+<code>text</code>
+</td>
+
+<td>
+string
+</td>
+
+<td>
+Input language data.
+</td>
+</tr>
+
+<tr>
+<td>
+<code>language</code>
+</td>
+
+<td>
+string
+</td>
+
+<td>
+Language code such as en.
+</td>
+</tr>
+
+<tr>
+<td>
+<code>tasks</code>
+</td>
+
+<td>
+array
+</td>
+
+<td>
+Requested intelligence operations.
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<div class="code">
+
+<div class="code-head">
+
+<span>
+REQUEST
+</span>
+
+<button
+  class="copy"
+  onclick="copyCode('intelCode')"
+>
+COPY
+</button>
+
+</div>
+
+<pre id="intelCode">{
+  "text": "Analyse this document.",
+  "language": "en",
+  "tasks": [
+    "classification",
+    "entities",
+    "summary"
+  ]
+}</pre>
+
+</div>
+
+</section>
+
+
+<!-- DATASETS -->
+
+<section
+  id="datasets"
+  class="doc-section"
+>
+
+<div class="section-number">
+04 / DATASETS
+</div>
+
+<h2>
+Process language datasets.
+</h2>
+
+<p>
+Run structured and unstructured
+language data through Lexora pipelines.
+</p>
+
+
+<div class="endpoint-card">
+
+<div class="endpoint-head">
+
+<span class="method-badge">
+POST
+</span>
+
+<span class="path">
+/v1/datasets/process
+</span>
+
+</div>
+
+<div class="endpoint-body">
+
+<p class="endpoint-description">
+Process a dataset through the Lexora
+language intelligence pipeline.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="code">
+
+<div class="code-head">
+EXAMPLE RESPONSE
+</div>
+
+<pre>{
+  "status": "success",
+  "request_id": "lxr_01...",
+  "results": {
+    "language": "en",
+    "confidence": 0.98
+  }
+}</pre>
+
+</div>
+
+</section>
+
+
+<!-- RESPONSES -->
+
+<section
+  id="responses"
+  class="doc-section"
+>
+
+<div class="section-number">
+05 / RESPONSES
+</div>
+
+<h2>
+Predictable responses.
+</h2>
+
+<p>
+Successful requests return a structured
+JSON response containing request metadata
+and intelligence results.
+</p>
+
+
+<div class="code">
+
+<div class="code-head">
+200 OK
+</div>
+
+<pre>{
+  "status": "success",
+  "request_id": "lxr_01...",
+  "results": {
+    "language": "en",
+    "confidence": 0.98
+  }
+}</pre>
+
+</div>
+
+</section>
+
+
+<!-- ERRORS -->
+
+<section
+  id="errors"
+  class="doc-section"
+>
+
+<div class="section-number">
+06 / ERRORS
+</div>
+
+<h2>
+Errors that explain themselves.
+</h2>
+
+<p>
+When a request fails, Lexora returns
+a structured error object containing
+a machine-readable code and a human-readable
+message.
+</p>
+
+
+<div class="code">
+
+<div class="code-head">
+ERROR RESPONSE
+</div>
+
+<pre>{
+  "error": {
+    "code": "invalid_api_key",
+    "message": "API key is invalid."
+  }
+}</pre>
+
+</div>
+
+
+<table class="table">
+
+<thead>
+
+<tr>
+<th>
+CODE
+</th>
+
+<th>
+MEANING
+</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>
+<code>invalid_api_key</code>
+</td>
+
+<td>
+The supplied API key is invalid.
+</td>
+</tr>
+
+<tr>
+<td>
+<code>unauthorized</code>
+</td>
+
+<td>
+Authentication is required.
+</td>
+</tr>
+
+<tr>
+<td>
+<code>invalid_request</code>
+</td>
+
+<td>
+The request payload is invalid.
+</td>
+</tr>
+
+<tr>
+<td>
+<code>server_error</code>
+</td>
+
+<td>
+Lexora could not complete the request.
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</section>
+
+
+<footer class="footer">
+
+<span>
+LEXORA ENGINE V1.0
+</span>
+
+<span>
+LANGUAGE INTELLIGENCE INFRASTRUCTURE
+</span>
+
+</footer>
+
+
+</main>
+
+
+<!-- RIGHT TOC -->
+
+<aside class="toc">
+
+<div class="toc-label">
+ON THIS PAGE
+</div>
+
+<a href="#overview">
+Overview
+</a>
+
+<a href="#quickstart">
+Quick start
+</a>
+
+<a href="#authentication">
+Authentication
+</a>
+
+<a href="#intelligence">
+Intelligence
+</a>
+
+<a href="#datasets">
+Datasets
+</a>
+
+<a href="#responses">
+Responses
+</a>
+
+<a href="#errors">
+Errors
+</a>
+
+</aside>
+
+
+</div>
+
+
+<script>
+
+function copyCode(id){
+
+  const element =
+    document.getElementById(id);
+
+  const text =
+    element.innerText;
+
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+
+      const buttons =
+        document.querySelectorAll(".copy");
+
+      buttons.forEach(button => {
+
+        if(
+          button.getAttribute("onclick")
+            ?.includes(id)
+        ){
+
+          const old =
+            button.innerText;
+
+          button.innerText =
+            "COPIED";
+
+          setTimeout(
+            () => {
+              button.innerText = old;
+            },
+            1200
+          );
+
+        }
+
+      });
+
+    });
+
+}
+
+
+/* Active documentation section */
+
+const sections =
+  document.querySelectorAll(
+    ".doc-section"
+  );
+
+const links =
+  document.querySelectorAll(
+    ".side-links a"
+  );
+
+const observer =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+
+          links.forEach(link => {
+
+            link.classList.remove(
+              "active"
+            );
+
+          });
+
+          const active =
+            document.querySelector(
+              `.side-links a[href="#${entry.target.id}"]`
+            );
+
+          if(active){
+
+            active.classList.add(
+              "active"
+            );
+
+          }
+
+        }
+
+      });
+
+    },
+    {
+      rootMargin:
+        "-20% 0px -65% 0px"
+    }
+  );
+
+sections.forEach(
+  section =>
+    observer.observe(section)
+);
+
+</script>
+
+</body>
+</html>

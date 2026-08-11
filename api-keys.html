@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lexora — API Keys</title>
+
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+  <a class="logo" href="/">LEXORA</a>
+
+  <nav>
+    <a href="/platform.html">Platform</a>
+    <a href="/api.html">API</a>
+    <a href="/docs.html">Docs</a>
+  </nav>
+
+  <div class="nav-actions">
+    <a class="btn btn-ghost" href="/dashboard.html">
+      Dashboard
+    </a>
+  </div>
+
+</header>
+
+<main class="dashboard-page">
+
+  <section class="dashboard-hero">
+
+    <div class="badge">
+      DEVELOPER SETTINGS
+    </div>
+
+    <h1>
+      API keys<span>.</span>
+    </h1>
+
+    <p>
+      Create and manage credentials for accessing
+      the Lexora Engine API.
+    </p>
+
+  </section>
+
+  <section class="workspace-panel">
+
+    <div>
+      <div class="card-label">
+        API ACCESS
+      </div>
+
+      <h2>
+        No API keys yet.
+      </h2>
+
+      <p>
+        Your API key management will be connected
+        to Supabase and Clerk.
+      </p>
+    </div>
+
+    <div class="workspace-actions">
+
+      <button
+        class="btn btn-primary"
+        id="createKey"
+      >
+        Create API key
+      </button>
+
+    </div>
+
+  </section>
+
+  <a class="back-link" href="/dashboard.html">
+    ← Back to dashboard
+  </a>
+
+</main>
+
+<script>
+  document.getElementById('createKey').addEventListener('click', () => {
+    alert(
+      'Next: generate the API key, hash it, and store the hash in Supabase.'
+    )
+  })
+</script>
+
+</body>
+</html>

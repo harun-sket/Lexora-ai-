@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Lexora — Workspace Access</title>
+
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body class="workspace-access-page">
+
+  <header class="site-header">
+
+    <div class="nav-shell">
+
+      <a href="/" class="brand">
+        LEXORA
+      </a>
+
+      <a
+        href="/"
+        class="nav-button nav-button-ghost"
+      >
+        ← Home
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <main class="workspace-access-main">
+
+    <section class="workspace-access-card">
+
+      <div class="access-icon">
+        ◈
+      </div>
+
+      <span class="access-kicker">
+        LEXORA ENGINE
+      </span>
+
+      <h1>
+        Access workspace.
+      </h1>
+
+      <p>
+        Enter your workspace password to continue
+        to the Lexora Engine.
+      </p>
+
+
+      <form id="workspace-form">
+
+        <label for="workspace-password">
+          Workspace password
+        </label>
+
+        <div class="password-wrapper">
+
+          <input
+            id="workspace-password"
+            type="password"
+            placeholder="Enter password"
+            autocomplete="current-password"
+            required
+          >
+
+          <button
+            type="button"
+            id="toggle-password"
+            class="password-toggle"
+          >
+            Show
+          </button>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="workspace-unlock-button"
+        >
+          <span>Unlock workspace</span>
+          <span>↗</span>
+        </button>
+
+      </form>
+
+
+      <p
+        id="access-error"
+        class="access-error"
+      ></p>
+
+
+      <div class="access-footer">
+
+        <span>
+          SECURE WORKSPACE
+        </span>
+
+        <span>
+          LEXORA V1.0
+        </span>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <div class="ambient-glow glow-blue"></div>
+  <div class="ambient-glow glow-green"></div>
+
+
+  <script>
+
+    const form =
+      document.getElementById("workspace-form");
+
+    const password =
+      document.getElementById("workspace-password");
+
+    const error =
+      document.getElementById("access-error");
+
+    const toggle =
+      document.getElementById("toggle-password");
+
+
+    toggle.addEventListener("click", () => {
+
+      if (password.type === "password") {
+
+        password.type = "text";
+
+        toggle.textContent = "Hide";
+
+      } else {
+
+        password.type = "password";
+
+        toggle.textContent = "Show";
+
+      }
+
+    });
+
+
+    form.addEventListener("submit", (event) => {
+
+      event.preventDefault();
+
+      /*
+        DEMO ONLY.
+
+        This is NOT secure authentication.
+        Replace this with a backend verification
+        before using it for a real secret.
+      */
+
+      const entered =
+        password.value;
+
+      const demoPassword =
+        "lexora";
+
+      if (entered === demoPassword) {
+
+        sessionStorage.setItem(
+          "lexora_workspace_access",
+          "true"
+        );
+
+        window.location.href =
+          "/dashboard.html";
+
+      } else {
+
+        error.textContent =
+          "Incorrect workspace password.";
+
+        password.value = "";
+
+        password.focus();
+
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>

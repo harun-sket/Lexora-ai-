@@ -1,0 +1,7 @@
+error when starting dev server:
+Error: Port 5050 is already in use
+    at httpServerStart (file:///workspaces/Lexora-ai-/node_modules/vite/dist/node/chunks/node.js:11656:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async startServer (file:///workspaces/Lexora-ai-/node_modules/vite/dist/node/chunks/node.js:26625:30)
+    at async Object.listen (file:///workspaces/Lexora-ai-/node_modules/vite/dist/node/chunks/node.js:26442:4)
+    at async CAC.<anonymous> (file:///workspaces/Lexora-ai-/node_modules/vite/dist/node/cli.js:721:3)

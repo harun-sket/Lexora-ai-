@@ -1,0 +1,682 @@
+/* ============================================================
+   LEXORA — WORKSPACE ACCESS PAGE
+   ============================================================ */
+
+:root {
+  --black: #050608;
+  --white: #f5f5f7;
+  --muted: #858992;
+  --muted-dark: #555963;
+
+  --line: rgba(255,255,255,.08);
+  --line-bright: rgba(255,255,255,.15);
+
+  --green: #65ff9a;
+  --blue: #6572ff;
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+
+  min-height: 100%;
+
+  background: var(--black);
+  color: var(--white);
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(
+      650px 500px at 80% 10%,
+      rgba(90,100,255,.085),
+      transparent 68%
+    ),
+    radial-gradient(
+      600px 500px at 10% 90%,
+      rgba(101,255,154,.035),
+      transparent 68%
+    ),
+    var(--black);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ============================================================
+   BACKGROUND GRID
+   ============================================================ */
+
+body::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.017) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.017) 1px,
+      transparent 1px
+    );
+
+  background-size: 72px 72px;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      black,
+      transparent 92%
+    );
+
+  z-index: 0;
+}
+
+/* ============================================================
+   PAGE
+   ============================================================ */
+
+.workspace-access-page {
+  position: relative;
+  z-index: 1;
+
+  min-height: 100vh;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+
+.workspace-access-navbar {
+  position: relative;
+  z-index: 10;
+
+  width: 100%;
+
+  min-height: 76px;
+
+  padding:
+    0 32px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  border-bottom:
+    1px solid var(--line);
+}
+
+.workspace-access-logo {
+  color: #fff;
+
+  font-size: 17px;
+
+  font-weight: 800;
+
+  letter-spacing: .22em;
+}
+
+.workspace-access-nav-status {
+  color: var(--muted);
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  letter-spacing: .15em;
+
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   MAIN
+   ============================================================ */
+
+.workspace-access-main {
+  position: relative;
+  z-index: 2;
+
+  min-height:
+    calc(100vh - 76px);
+
+  padding:
+    55px 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+/* ============================================================
+   CARD
+   ============================================================ */
+
+.workspace-access-card {
+  position: relative;
+
+  width: 100%;
+
+  max-width: 430px;
+
+  padding: 33px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20,23,31,.96),
+      rgba(7,9,13,.99)
+    );
+
+  border:
+    1px solid var(--line-bright);
+
+  border-radius: 21px;
+
+  box-shadow:
+    0 40px 130px
+    rgba(0,0,0,.5);
+
+  backdrop-filter:
+    blur(25px);
+}
+
+/* top ambient glow */
+
+.workspace-access-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 240px;
+  height: 240px;
+
+  top: -150px;
+  right: -120px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(101,114,255,.15),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+/* bottom glow */
+
+.workspace-access-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 200px;
+  height: 200px;
+
+  bottom: -150px;
+  left: -130px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(101,255,154,.07),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+/* ============================================================
+   ICON
+   ============================================================ */
+
+.access-icon {
+  position: relative;
+  z-index: 1;
+
+  width: 47px;
+  height: 47px;
+
+  margin-bottom: 27px;
+
+  display: grid;
+
+  place-items: center;
+
+  color: #d0d2d8;
+
+  background:
+    rgba(255,255,255,.035);
+
+  border:
+    1px solid var(--line-bright);
+
+  border-radius: 12px;
+
+  font-size: 17px;
+
+  box-shadow:
+    inset 0 1px 0
+    rgba(255,255,255,.035);
+}
+
+/* ============================================================
+   TEXT
+   ============================================================ */
+
+.access-kicker {
+  position: relative;
+  z-index: 1;
+
+  color: var(--muted-dark);
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: .18em;
+
+  text-transform: uppercase;
+}
+
+.workspace-access-card h1 {
+  position: relative;
+  z-index: 1;
+
+  margin:
+    12px 0 13px;
+
+  color: #fff;
+
+  font-size: 39px;
+
+  line-height: .94;
+
+  font-weight: 720;
+
+  letter-spacing: -.07em;
+}
+
+.workspace-access-card > p {
+  position: relative;
+  z-index: 1;
+
+  margin:
+    0 0 29px;
+
+  color: var(--muted);
+
+  font-size: 13px;
+
+  line-height: 1.65;
+}
+
+/* ============================================================
+   FORM
+   ============================================================ */
+
+.workspace-access-form {
+  position: relative;
+  z-index: 2;
+}
+
+.workspace-access-form label {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: #b2b4bb;
+
+  font-size: 10px;
+
+  font-weight: 650;
+}
+
+.password-wrapper {
+  position: relative;
+
+  width: 100%;
+}
+
+.password-wrapper input {
+  width: 100%;
+
+  height: 53px;
+
+  padding:
+    0 68px 0 15px;
+
+  color: #111318;
+
+  background: #fff;
+
+  border:
+    1px solid #fff;
+
+  border-radius: 10px;
+
+  outline: none;
+
+  font-size: 14px;
+
+  transition:
+    box-shadow .2s ease,
+    border-color .2s ease;
+}
+
+.password-wrapper input::placeholder {
+  color: #858991;
+}
+
+.password-wrapper input:focus {
+  border-color: #fff;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(101,255,154,.10);
+}
+
+/* ============================================================
+   SHOW / HIDE
+   ============================================================ */
+
+.password-toggle {
+  position: absolute;
+
+  top: 50%;
+  right: 8px;
+
+  transform:
+    translateY(-50%);
+
+  min-height: 32px;
+
+  padding:
+    0 9px;
+
+  color: #555961;
+
+  background: transparent;
+
+  border: 0;
+
+  border-radius: 7px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  font-weight: 700;
+
+  letter-spacing: .08em;
+}
+
+.password-toggle:hover {
+  color: #111318;
+
+  background:
+    rgba(0,0,0,.05);
+}
+
+/* ============================================================
+   UNLOCK BUTTON
+   ============================================================ */
+
+.workspace-unlock-button {
+  width: 100%;
+
+  height: 53px;
+
+  margin-top: 13px;
+
+  padding:
+    0 17px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  color: #050608;
+
+  background: #fff;
+
+  border:
+    1px solid #fff;
+
+  border-radius: 10px;
+
+  font-size: 10px;
+
+  font-weight: 750;
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.workspace-unlock-button:hover {
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 14px 38px
+    rgba(255,255,255,.08);
+}
+
+.workspace-unlock-button:active {
+  transform:
+    translateY(0);
+}
+
+.workspace-unlock-arrow {
+  font-size: 16px;
+}
+
+/* ============================================================
+   ERROR
+   ============================================================ */
+
+.access-error {
+  min-height: 18px;
+
+  margin:
+    12px 0 0;
+
+  color: #ff7474;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  line-height: 1.5;
+
+  letter-spacing: .04em;
+}
+
+.access-error:empty {
+  margin: 0;
+}
+
+/* ============================================================
+   SECURITY STATUS
+   ============================================================ */
+
+.access-security {
+  margin-top: 22px;
+
+  padding:
+    13px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  background:
+    rgba(101,255,154,.025);
+
+  border:
+    1px solid rgba(101,255,154,.08);
+
+  border-radius: 10px;
+
+  color: var(--muted);
+
+  font-family: monospace;
+
+  font-size: 7px;
+
+  letter-spacing: .08em;
+}
+
+.access-security-dot {
+  width: 6px;
+  height: 6px;
+
+  flex: 0 0 auto;
+
+  border-radius: 50%;
+
+  background: var(--green);
+
+  box-shadow:
+    0 0 12px
+    rgba(101,255,154,.55);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.access-footer {
+  position: relative;
+  z-index: 1;
+
+  margin-top: 22px;
+
+  padding-top: 17px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  border-top:
+    1px solid var(--line);
+
+  color: #42454c;
+
+  font-family: monospace;
+
+  font-size: 7px;
+
+  letter-spacing: .13em;
+
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+  .workspace-access-navbar {
+    min-height: 64px;
+
+    padding:
+      0 16px;
+  }
+
+  .workspace-access-logo {
+    font-size: 14px;
+  }
+
+  .workspace-access-nav-status {
+    display: none;
+  }
+
+  .workspace-access-main {
+    min-height:
+      calc(100vh - 64px);
+
+    padding:
+      32px 16px 45px;
+  }
+
+  .workspace-access-card {
+    padding:
+      25px 20px;
+
+    border-radius: 18px;
+  }
+
+  .workspace-access-card h1 {
+    font-size: 34px;
+  }
+
+  .workspace-access-card > p {
+    font-size: 12px;
+  }
+
+  .password-wrapper input,
+  .workspace-unlock-button {
+    height: 51px;
+  }
+
+}

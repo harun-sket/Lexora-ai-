@@ -1,0 +1,119 @@
+cat << 'EOF' > tests/stress_long_token.py
+from __future__ import annotations
+
+import time
+
+from languages.tamil.unified_engine import process
+
+
+CASES = [
+        ("1K", "அ" * 1_000),
+            ("10K", "அ" * 10_000),
+                ("100K", "அ" * 100_000),
+                    ("500K", "அ" * 500_000),
+                        ("1M", "அ" * 1_000_000),
+]
+
+
+def main() -> None:
+    print("=" * 90)
+        print("LEXORA LONG TOKEN STRESS TEST")
+            print("=" * 90)
+
+                for name, text in CASES:
+                        print(f"\n🚀 STARTING {name} CHARACTER TOKEN TEST")
+
+                                start = time.perf_counter()
+
+                                        try:
+                                                    result = process(text)
+                                                                elapsed = time.perf_counter() - start
+
+                                                                            assert isinstance(result, dict)
+                                                                                        assert isinstance(result.get("tokens"), list)
+                                                                                                    assert isinstance(result.get("analysis"), list)
+
+                                                                                                                print(
+                                                                                                                                    f"{name:6} | "
+                                                                                                                                                    f"chars={len(text):9,} | "
+                                                                                                                                                                    f"time={elapsed:8.3f}s | "
+                                                                                                                                                                                    f"PASS 🟢"
+                                                                                                                )
+
+                                                                                                                        except Exception as exc:
+                                                                                                                                    elapsed = time.perf_counter() - start
+
+                                                                                                                                                print(
+                                                                                                                                                                    f"{name:6} | "
+                                                                                                                                                                                    f"chars={len(text):9,} | "
+                                                                                                                                                                                                    f"time={elapsed:8.3f}s | "
+                                                                                                                                                                                                                    f"FAIL 🔴 | "
+                                                                                                                                                                                                                                    f"{type(exc).__name__}: {exc}"
+                                                                                                                                                )
+
+                                                                                                                                                    print("=" * 90)
+                                                                                                                                                        print("LONG TOKEN STRESS TEST COMPLETE")
+                                                                                                                                                            print("=" * 90)
+
+
+                                                                                                                                                            if __name__ == "__main__":
+                                                                                                                                                                main()
+                                                                                                                                                                EOF
+                                                                                                                                                )
+                                                                                                                )
+]======================================================================
+LEXORA UNICODE ROBUSTNESS TEST
+======================================================================
+======================================================================
+CASE: tamil
+INPUT: 'தமிழ்'
+STATUS: PASS
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': 'தமிழ்', 'tokens': ['தமிழ்'], 'analysis': [{'text': 'தமிழ்', 'normalized': 'தமிழ்', 'corrected': 'தமிழ்', 'lemma': 'தமிழ்', 'known': True, 'frequency': 1778279, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='தமிழ்', root='தமிழ்', suffixes=[])}]}
+======================================================================
+CASE: tamil_sentence
+INPUT: 'தமிழ் ஒரு அழகான மொழி'
+STATUS: PASS
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': 'தமிழ் ஒரு அழகான மொழி', 'tokens': ['தமிழ்', 'ஒரு', 'அழகான', 'மொழி'], 'analysis': [{'text': 'தமிழ்', 'normalized': 'தமிழ்', 'corrected': 'தமிழ்', 'lemma': 'தமிழ்', 'known': True, 'frequency': 1778279, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='தமிழ்', root='தமிழ்', suffixes=[])}, {'text': 'ஒரு', 'normalized': 'ஒரு', 'corrected': 'ஒரு', 'lemma': 'ஒரு', 'known': True, 'frequency': 10232929, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ஒரு', root='ஒரு', suffixes=[])}, {'text': 'அழகான', 'normalized': 'அழகான', 'corrected': 'அழகான', 'lemma': 'அழகான', 'known': True, 'frequency': 117489, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='அழகான', root='அழகான', suffixes=[])}, {'text': 'மொழி', 'normalized': 'மொழி', 'corrected': 'மொழி', 'lemma': 'மொழி', 'known': True, 'frequency': 301995, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='மொழி', root='மொழி', suffixes=[])}]}
+======================================================================
+CASE: mixed_english
+INPUT: 'தமிழ் Tamil Lexora'
+STATUS: PASS
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': 'தமிழ் Tamil Lexora', 'tokens': ['தமிழ்', 'Tamil', 'Lexora'], 'analysis': [{'text': 'தமிழ்', 'normalized': 'தமிழ்', 'corrected': 'தமிழ்', 'lemma': 'தமிழ்', 'known': True, 'frequency': 1778279, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='தமிழ்', root='தமிழ்', suffixes=[])}, {'text': 'Tamil', 'normalized': 'Tamil', 'corrected': 'Tamil', 'lemma': 'Tamil', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='Tamil', root='Tamil', suffixes=[])}, {'text': 'Lexora', 'normalized': 'Lexora', 'corrected': 'Lexora', 'lemma': 'Lexora', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='Lexora', root='Lexora', suffixes=[])}]}
+======================================================================
+CASE: mixed_scripts
+INPUT: 'தமிழ் English 日本語 العربية हिन्दी'
+STATUS: PASS
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': 'தமிழ் English 日本語 العربية हिन्दी', 'tokens': ['தமிழ்', 'English', '日', '本', '語', 'ا', 'ل', 'ع', 'ر', 'ب', 'ي', 'ة', 'ह', 'ि', 'न', '्', 'द', 'ी'], 'analysis': [{'text': 'தமிழ்', 'normalized': 'தமிழ்', 'corrected': 'தமிழ்', 'lemma': 'தமிழ்', 'known': True, 'frequency': 1778279, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='தமிழ்', root='தமிழ்', suffixes=[])}, {'text': 'English', 'normalized': 'English', 'corrected': 'English', 'lemma': 'English', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='English', root='English', suffixes=[])}, {'text': '日', 'normalized': '日', 'corrected': '日', 'lemma': '日', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='日', root='日', suffixes=[])}, {'text': '本', 'normalized': '本', 'corrected': '本', 'lemma': '本', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='本', root='本', suffixes=[])}, {'text': '語', 'normalized': '語', 'corrected': '語', 'lemma': '語', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='語', root='語', suffixes=[])}, {'text': 'ا', 'normalized': 'ا', 'corrected': 'ا', 'lemma': 'ا', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ا', root='ا', suffixes=[])}, {'text': 'ل', 'normalized': 'ل', 'corrected': 'ل', 'lemma': 'ل', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ل', root='ل', suffixes=[])}, {'text': 'ع', 'normalized': 'ع', 'corrected': 'ع', 'lemma': 'ع', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ع', root='ع', suffixes=[])}, {'text': 'ر', 'normalized': 'ر', 'corrected': 'ر', 'lemma': 'ر', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ر', root='ر', suffixes=[])}, {'text': 'ب', 'normalized': 'ب', 'corrected': 'ب', 'lemma': 'ب', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ب', root='ب', suffixes=[])}, {'text': 'ي', 'normalized': 'ي', 'corrected': 'ي', 'lemma': 'ي', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ي', root='ي', suffixes=[])}, {'text': 'ة', 'normalized': 'ة', 'corrected': 'ة', 'lemma': 'ة', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ة', root='ة', suffixes=[])}, {'text': 'ह', 'normalized': 'ह', 'corrected': 'ह', 'lemma': 'ह', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ह', root='ह', suffixes=[])}, {'text': 'ि', 'normalized': 'ि', 'corrected': 'ि', 'lemma': 'ि', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ि', root='ि', suffixes=[])}, {'text': 'न', 'normalized': 'न', 'corrected': 'न', 'lemma': 'न', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='न', root='न', suffixes=[])}, {'text': '्', 'normalized': '्', 'corrected': '्', 'lemma': '्', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='्', root='्', suffixes=[])}, {'text': 'द', 'normalized': 'द', 'corrected': 'द', 'lemma': 'द', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='द', root='द', suffixes=[])}, {'text': 'ी', 'normalized': 'ी', 'corrected': 'ी', 'lemma': 'ी', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ी', root='ी', suffixes=[])}]}
+======================================================================
+CASE: emoji
+INPUT: '🔥 🚀 🗿 ❤️ 😂'
+STATUS: PASS
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': '🔥 🚀 🗿 ❤️ 😂', 'tokens': ['🔥', '🚀', '🗿', '❤', '️', '😂'], 'analysis': [{'text': '🔥', 'normalized': '🔥', 'corrected': '🔥', 'lemma': '🔥', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='🔥', root='🔥', suffixes=[])}, {'text': '🚀', 'normalized': '🚀', 'corrected': '🚀', 'lemma': '🚀', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='🚀', root='🚀', suffixes=[])}, {'text': '🗿', 'normalized': '🗿', 'corrected': '🗿', 'lemma': '🗿', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='🗿', root='🗿', suffixes=[])}, {'text': '❤', 'normalized': '❤', 'corrected': '❤', 'lemma': '❤', 'known': True, 'frequency': 1288, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='❤', root='❤', suffixes=[])}, {'text': '️', 'normalized': '️', 'corrected': '️', 'lemma': '️', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='️', root='️', suffixes=[])}, {'text': '😂', 'normalized': '😂', 'corrected': '😂', 'lemma': '😂', 'known': True, 'frequency': 14125, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='😂', root='😂', suffixes=[])}]}
+======================================================================
+CASE: numbers
+INPUT: '123 456 789 2026'
+STATUS: PASS
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': '123 456 789 2026', 'tokens': ['123', '456', '789', '2026'], 'analysis': [{'text': '123', 'normalized': '123', 'corrected': '123', 'lemma': '123', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='123', root='123', suffixes=[])}, {'text': '456', 'normalized': '456', 'corrected': '456', 'lemma': '456', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='456', root='456', suffixes=[])}, {'text': '789', 'normalized': '789', 'corrected': '789', 'lemma': '789', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='789', root='789', suffixes=[])}, {'text': '2026', 'normalized': '2026', 'corrected': '2026', 'lemma': '2026', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='2026', root='2026', suffixes=[])}]}
+======================================================================
+CASE: punctuation
+INPUT: '!!! ??? ... ,,, ;; :::'
+STATUS: PASS
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': '!!! ??? ... ,,, ;; :::', 'tokens': ['!', '!', '!', '?', '?', '?', '.', '.', '.', ',', ',', ',', ';', ';', ':', ':', ':'], 'analysis': [{'text': '!', 'normalized': '!', 'corrected': '!', 'lemma': '!', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='!', root='!', suffixes=[])}, {'text': '!', 'normalized': '!', 'corrected': '!', 'lemma': '!', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='!', root='!', suffixes=[])}, {'text': '!', 'normalized': '!', 'corrected': '!', 'lemma': '!', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='!', root='!', suffixes=[])}, {'text': '?', 'normalized': '?', 'corrected': '?', 'lemma': '?', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='?', root='?', suffixes=[])}, {'text': '?', 'normalized': '?', 'corrected': '?', 'lemma': '?', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='?', root='?', suffixes=[])}, {'text': '?', 'normalized': '?', 'corrected': '?', 'lemma': '?', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='?', root='?', suffixes=[])}, {'text': '.', 'normalized': '.', 'corrected': '.', 'lemma': '.', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='.', root='.', suffixes=[])}, {'text': '.', 'normalized': '.', 'corrected': '.', 'lemma': '.', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='.', root='.', suffixes=[])}, {'text': '.', 'normalized': '.', 'corrected': '.', 'lemma': '.', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='.', root='.', suffixes=[])}, {'text': ',', 'normalized': ',', 'corrected': ',', 'lemma': ',', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word=',', root=',', suffixes=[])}, {'text': ',', 'normalized': ',', 'corrected': ',', 'lemma': ',', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word=',', root=',', suffixes=[])}, {'text': ',', 'normalized': ',', 'corrected': ',', 'lemma': ',', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word=',', root=',', suffixes=[])}, {'text': ';', 'normalized': ';', 'corrected': ';', 'lemma': ';', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word=';', root=';', suffixes=[])}, {'text': ';', 'normalized': ';', 'corrected': ';', 'lemma': ';', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word=';', root=';', suffixes=[])}, {'text': ':', 'normalized': ':', 'corrected': ':', 'lemma': ':', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word=':', root=':', suffixes=[])}, {'text': ':', 'normalized': ':', 'corrected': ':', 'lemma': ':', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word=':', root=':', suffixes=[])}, {'text': ':', 'normalized': ':', 'corrected': ':', 'lemma': ':', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word=':', root=':', suffixes=[])}]}
+======================================================================
+CASE: combining
+INPUT: 'த்\u200dமிழ்'
+STATUS: PASS
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': 'த்\u200dமிழ்', 'tokens': ['த்', '\u200d', 'மிழ்'], 'analysis': [{'text': 'த்', 'normalized': 'த்', 'corrected': 'த்', 'lemma': 'த்', 'known': True, 'frequency': 10471, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='த்', root='த்', suffixes=[])}, {'text': '\u200d', 'normalized': '\u200d', 'corrected': '\u200d', 'lemma': '\u200d', 'known': True, 'frequency': 3715, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='\u200d', root='\u200d', suffixes=[])}, {'text': 'மிழ்', 'normalized': 'மிழ்', 'corrected': 'மிழ்', 'lemma': 'மிழ்', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='மிழ்', root='மிழ்', suffixes=[])}]}
+======================================================================
+CASE: zero_width
+INPUT: 'தமிழ்\u200bதமிழ்'
+STATUS: PASS
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': 'தமிழ்\u200bதமிழ்', 'tokens': ['தமிழ்', '\u200b', 'தமிழ்'], 'analysis': [{'text': 'தமிழ்', 'normalized': 'தமிழ்', 'corrected': 'தமிழ்', 'lemma': 'தமிழ்', 'known': True, 'frequency': 1778279, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='தமிழ்', root='தமிழ்', suffixes=[])}, {'text': '\u200b', 'normalized': '\u200b', 'corrected': '\u200b', 'lemma': '\u200b', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='\u200b', root='\u200b', suffixes=[])}, {'text': 'தமிழ்', 'normalized': 'தமிழ்', 'corrected': 'தமிழ்', 'lemma': 'தமிழ்', 'known': True, 'frequency': 1778279, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='தமிழ்', root='தமிழ்', suffixes=[])}]}
+======================================================================
+CASE: mixed_everything
+INPUT: 'தமிழ் Lexora 123 🔥 日本語 العربية !!!'
+STATUS: PASS
+OUTPUT: {'engine': 'lexora-tamil', 'version': '1.0', 'original': 'தமிழ் Lexora 123 🔥 日本語 العربية !!!', 'tokens': ['தமிழ்', 'Lexora', '123', '🔥', '日', '本', '語', 'ا', 'ل', 'ع', 'ر', 'ب', 'ي', 'ة', '!', '!', '!'], 'analysis': [{'text': 'தமிழ்', 'normalized': 'தமிழ்', 'corrected': 'தமிழ்', 'lemma': 'தமிழ்', 'known': True, 'frequency': 1778279, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='தமிழ்', root='தமிழ்', suffixes=[])}, {'text': 'Lexora', 'normalized': 'Lexora', 'corrected': 'Lexora', 'lemma': 'Lexora', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='Lexora', root='Lexora', suffixes=[])}, {'text': '123', 'normalized': '123', 'corrected': '123', 'lemma': '123', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='123', root='123', suffixes=[])}, {'text': '🔥', 'normalized': '🔥', 'corrected': '🔥', 'lemma': '🔥', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='🔥', root='🔥', suffixes=[])}, {'text': '日', 'normalized': '日', 'corrected': '日', 'lemma': '日', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='日', root='日', suffixes=[])}, {'text': '本', 'normalized': '本', 'corrected': '本', 'lemma': '本', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='本', root='本', suffixes=[])}, {'text': '語', 'normalized': '語', 'corrected': '語', 'lemma': '語', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='語', root='語', suffixes=[])}, {'text': 'ا', 'normalized': 'ا', 'corrected': 'ا', 'lemma': 'ا', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ا', root='ا', suffixes=[])}, {'text': 'ل', 'normalized': 'ل', 'corrected': 'ل', 'lemma': 'ل', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ل', root='ل', suffixes=[])}, {'text': 'ع', 'normalized': 'ع', 'corrected': 'ع', 'lemma': 'ع', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ع', root='ع', suffixes=[])}, {'text': 'ر', 'normalized': 'ر', 'corrected': 'ر', 'lemma': 'ر', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ر', root='ر', suffixes=[])}, {'text': 'ب', 'normalized': 'ب', 'corrected': 'ب', 'lemma': 'ب', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ب', root='ب', suffixes=[])}, {'text': 'ي', 'normalized': 'ي', 'corrected': 'ي', 'lemma': 'ي', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ي', root='ي', suffixes=[])}, {'text': 'ة', 'normalized': 'ة', 'corrected': 'ة', 'lemma': 'ة', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='ة', root='ة', suffixes=[])}, {'text': '!', 'normalized': '!', 'corrected': '!', 'lemma': '!', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='!', root='!', suffixes=[])}, {'text': '!', 'normalized': '!', 'corrected': '!', 'lemma': '!', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='!', root='!', suffixes=[])}, {'text': '!', 'normalized': '!', 'corrected': '!', 'lemma': '!', 'known': False, 'frequency': 0, 'pos': 'UNK', 'entity': 'NONE', 'morphology': MorphAnalysis(word='!', root='!', suffixes=[])}]}
+======================================================================
+UNICODE ROBUSTNESS TEST COMPLETE
+======================================================================

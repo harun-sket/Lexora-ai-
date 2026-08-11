@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "@clerk/clerk-js": "^6.27.1",
+    "@clerk/express": "^2.1.52",
+    "@clerk/ui": "^1.29.1",
+    "@supabase/supabase-js": "^2.112.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "vite": "^8.2.1"
+  },
+  "scripts": {
+    "dev": "vite"
+  },
+  "type": "module"
+}

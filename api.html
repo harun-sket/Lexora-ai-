@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Lexora — API</title>
+
+  <link
+    rel="stylesheet"
+    href="/src/pages/api.css"
+  >
+
+</head>
+
+<body>
+
+
+  <!-- ========================================================
+       NAVIGATION
+       ======================================================== -->
+
+  <nav class="api-navbar">
+
+    <a
+      href="/"
+      class="api-logo"
+    >
+      LEXORA
+    </a>
+
+
+    <div class="api-nav-links">
+
+      <a href="/">
+        Platform
+      </a>
+
+      <a
+        href="/api.html"
+        class="active"
+      >
+        API
+      </a>
+
+      <a href="/docs.html">
+        Docs
+      </a>
+
+      <a href="/pricing.html">
+        Pricing
+      </a>
+
+      <a href="/workspace-access.html">
+        Workspace
+      </a>
+
+    </div>
+
+  </nav>
+
+
+
+  <!-- ========================================================
+       API LAYOUT
+       ======================================================== -->
+
+  <div class="api-layout">
+
+
+    <!-- ======================================================
+         SIDEBAR
+         ====================================================== -->
+
+    <aside class="api-sidebar">
+
+      <div class="api-sidebar-label">
+        API REFERENCE
+      </div>
+
+      <a
+        href="#overview"
+        class="active"
+      >
+        Overview
+      </a>
+
+      <a href="#authentication">
+        Authentication
+      </a>
+
+      <a href="#intelligence">
+        Intelligence
+      </a>
+
+      <a href="#datasets">
+        Datasets
+      </a>
+
+      <a href="#responses">
+        Responses
+      </a>
+
+      <a href="#errors">
+        Errors
+      </a>
+
+    </aside>
+
+
+
+    <!-- ======================================================
+         MAIN CONTENT
+         ====================================================== -->
+
+    <main class="api-content">
+
+
+      <!-- ====================================================
+           OVERVIEW
+           ==================================================== -->
+
+      <section id="overview">
+
+        <div class="api-kicker">
+          LEXORA API V1
+        </div>
+
+        <h1>
+          Build with
+          language intelligence.
+        </h1>
+
+        <p>
+          Access Lexora's language intelligence
+          infrastructure through a simple developer
+          API designed for applications,
+          AI systems and data pipelines.
+        </p>
+
+      </section>
+
+
+
+      <!-- ====================================================
+           QUICK START
+           ==================================================== -->
+
+      <section class="api-card">
+
+        <div class="api-card-header">
+
+          <div class="api-card-title">
+            Quick start
+          </div>
+
+          <div class="api-card-meta">
+            HTTPS · JSON
+          </div>
+
+        </div>
+
+
+        <div class="endpoint">
+
+          <span class="method post">
+            POST
+          </span>
+
+          <span class="endpoint-path">
+            /v1/intelligence
+          </span>
+
+        </div>
+
+
+        <pre class="api-code"><code><span class="keyword">curl</span> https://api.lexora.ai/v1/intelligence \
+  -H <span class="string">"Authorization: Bearer YOUR_API_KEY"</span> \
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -d <span class="string">'{
+    "text": "Your input text",
+    "language": "en"
+  }'</span></code></pre>
+
+      </section>
+
+
+
+      <!-- ====================================================
+           AUTHENTICATION
+           ==================================================== -->
+
+      <section
+        id="authentication"
+        class="api-card"
+      >
+
+        <div class="api-card-header">
+
+          <div class="api-card-title">
+            Authentication
+          </div>
+
+          <div class="api-card-meta">
+            API KEY
+          </div>
+
+        </div>
+
+
+        <p>
+          Every API request requires a valid
+          Lexora API key.
+        </p>
+
+
+        <pre class="api-code"><code><span class="string">Authorization: Bearer YOUR_API_KEY</span></code></pre>
+
+      </section>
+
+
+
+      <!-- ====================================================
+           INTELLIGENCE
+           ==================================================== -->
+
+      <section
+        id="intelligence"
+        class="api-card"
+      >
+
+        <div class="api-card-header">
+
+          <div class="api-card-title">
+            Language intelligence
+          </div>
+
+          <div class="api-card-meta">
+            POST /v1/intelligence
+          </div>
+
+        </div>
+
+
+        <div class="endpoint">
+
+          <span class="method post">
+            POST
+          </span>
+
+          <span class="endpoint-path">
+            /v1/intelligence
+          </span>
+
+        </div>
+
+
+        <pre class="api-code"><code>{
+  <span class="keyword">"text"</span>: <span class="string">"Analyse this document."</span>,
+  <span class="keyword">"language"</span>: <span class="string">"en"</span>,
+  <span class="keyword">"tasks"</span>: [
+    <span class="string">"classification"</span>,
+    <span class="string">"entities"</span>,
+    <span class="string">"summary"</span>
+  ]
+}</code></pre>
+
+      </section>
+
+
+
+      <!-- ====================================================
+           DATASETS
+           ==================================================== -->
+
+      <section
+        id="datasets"
+        class="api-card"
+      >
+
+        <div class="api-card-header">
+
+          <div class="api-card-title">
+            Dataset processing
+          </div>
+
+          <div class="api-card-meta">
+            PIPELINES
+          </div>
+
+        </div>
+
+
+        <p>
+          Process structured and unstructured
+          language data through Lexora pipelines.
+        </p>
+
+
+        <div class="endpoint">
+
+          <span class="method post">
+            POST
+          </span>
+
+          <span class="endpoint-path">
+            /v1/datasets/process
+          </span>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ====================================================
+           RESPONSES
+           ==================================================== -->
+
+      <section
+        id="responses"
+        class="api-card"
+      >
+
+        <div class="api-card-header">
+
+          <div class="api-card-title">
+            Response format
+          </div>
+
+          <div class="api-card-meta">
+            200 OK
+          </div>
+
+        </div>
+
+
+        <pre class="api-code"><code>{
+  <span class="keyword">"status"</span>: <span class="string">"success"</span>,
+  <span class="keyword">"request_id"</span>: <span class="string">"lxr_01..."</span>,
+  <span class="keyword">"results"</span>: {
+    <span class="keyword">"language"</span>: <span class="string">"en"</span>,
+    <span class="keyword">"confidence"</span>: 0.98
+  }
+}</code></pre>
+
+      </section>
+
+
+
+      <!-- ====================================================
+           ERRORS
+           ==================================================== -->
+
+      <section
+        id="errors"
+        class="api-card"
+      >
+
+        <div class="api-card-header">
+
+          <div class="api-card-title">
+            Errors
+          </div>
+
+          <div class="api-card-meta">
+            HTTP
+          </div>
+
+        </div>
+
+
+        <pre class="api-code"><code>{
+  <span class="keyword">"error"</span>: {
+    <span class="keyword">"code"</span>: <span class="string">"invalid_api_key"</span>,
+    <span class="keyword">"message"</span>: <span class="string">"API key is invalid."</span>
+  }
+}</code></pre>
+
+      </section>
+
+    </main>
+
+
+
+    <!-- ======================================================
+         RIGHT INFORMATION PANEL
+         ====================================================== -->
+
+    <aside class="api-right-panel">
+
+
+      <div class="api-right-card">
+
+        <div class="api-right-label">
+          API STATUS
+        </div>
+
+        <div class="api-right-value">
+          Operational
+        </div>
+
+        <div class="api-status">
+          All systems operational
+        </div>
+
+      </div>
+
+
+      <br>
+
+
+      <div class="api-right-card">
+
+        <div class="api-right-label">
+          VERSION
+        </div>
+
+        <div class="api-right-value">
+          V1.0
+        </div>
+
+      </div>
+
+
+      <br>
+
+
+      <div class="api-right-card">
+
+        <div class="api-right-label">
+          RESPONSE
+        </div>
+
+        <div class="api-right-value">
+          JSON
+        </div>
+
+      </div>
+
+
+      <br>
+
+
+      <div class="api-right-card">
+
+        <div class="api-right-label">
+          LATENCY
+        </div>
+
+        <div class="api-right-value">
+          Low-latency infrastructure
+        </div>
+
+      </div>
+
+    </aside>
+
+  </div>
+
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+/* =========================================================
+   LEXORA HOME
+   ========================================================= */
+
+.home-page {
+  position: relative;
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      700px 500px at 78% 15%,
+      rgba(82,94,255,.10),
+      transparent 70%
+    ),
+    radial-gradient(
+      500px 400px at 10% 75%,
+      rgba(101,255,154,.035),
+      transparent 70%
+    ),
+    var(--black);
+}
+
+.home-main {
+  position: relative;
+  z-index: 1;
+
+  width: min(
+    1180px,
+    calc(100% - 40px)
+  );
+
+  min-height:
+    calc(100vh - 76px);
+
+  margin: auto;
+
+  display: flex;
+  align-items: center;
+}
+
+.home-content {
+  max-width: 850px;
+
+  padding:
+    80px
+    0;
+}
+
+.home-kicker {
+  color: var(--muted-2);
+
+  font-family: monospace;
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: .22em;
+}
+
+.home-title {
+  margin:
+    24px
+    0
+    24px;
+
+  font-size:
+    clamp(58px, 8vw, 104px);
+
+  line-height: .89;
+
+  letter-spacing: -.075em;
+}
+
+.home-title span {
+  display: block;
+  color: #686d78;
+}
+
+.home-description {
+  max-width: 680px;
+
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.home-actions {
+  margin-top: 34px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.home-access-button {
+  min-height: 50px;
+
+  padding: 0 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 38px;
+
+  color: #050608;
+  background: white;
+
+  border: 1px solid white;
+  border-radius: 10px;
+
+  font-size: 12px;
+  font-weight: 750;
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.home-access-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 20px 60px rgba(255,255,255,.08);
+}
+
+.home-status {
+  margin-top: 35px;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: var(--muted);
+
+  font-size: 11px;
+}
+
+.home-status-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--green);
+
+  box-shadow:
+    0 0 16px rgba(101,255,154,.6);
+}
+
+.home-footer {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 28px;
+
+  text-align: center;
+
+  color: var(--muted-2);
+
+  font-family: monospace;
+  font-size: 8px;
+
+  letter-spacing: .16em;
+}
+
+@media (max-width: 600px) {
+
+  .home-main {
+    width: calc(100% - 32px);
+  }
+
+  .home-content {
+    padding: 55px 0 100px;
+  }
+
+  .home-title {
+    font-size: 57px;
+  }
+
+  .home-description {
+    font-size: 15px;
+  }
+
+  .home-actions {
+    flex-direction: column;
+  }
+
+  .home-access-button,
+  .home-actions .btn {
+    width: 100%;
+  }
+}

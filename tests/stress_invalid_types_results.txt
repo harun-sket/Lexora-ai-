@@ -1,0 +1,54 @@
+==========================================================================================
+LEXORA INVALID INPUT TYPE STRESS TEST
+==========================================================================================
+
+CASE: none
+TYPE: NoneType
+STATUS: REJECTED 🟢
+ERROR TYPE: TypeError
+ERROR: text must be a string
+
+CASE: integer
+TYPE: int
+STATUS: REJECTED 🟢
+ERROR TYPE: TypeError
+ERROR: text must be a string
+
+CASE: float
+TYPE: float
+STATUS: REJECTED 🟢
+ERROR TYPE: TypeError
+ERROR: text must be a string
+
+CASE: boolean
+TYPE: bool
+STATUS: REJECTED 🟢
+ERROR TYPE: TypeError
+ERROR: text must be a string
+
+CASE: list
+TYPE: list
+STATUS: REJECTED 🟢
+ERROR TYPE: TypeError
+ERROR: text must be a string
+
+CASE: dict
+TYPE: dict
+STATUS: REJECTED 🟢
+ERROR TYPE: TypeError
+ERROR: text must be a string
+
+CASE: tuple
+TYPE: tuple
+STATUS: REJECTED 🟢
+ERROR TYPE: TypeError
+ERROR: text must be a string
+
+CASE: bytes
+TYPE: bytes
+STATUS: REJECTED 🟢
+ERROR TYPE: TypeError
+ERROR: text must be a string
+==========================================================================================
+INVALID INPUT TYPE TEST COMPLETE
+==========================================================================================

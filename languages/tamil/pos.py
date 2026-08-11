@@ -11,10 +11,10 @@ def tag(token: str) -> str:
 
     frequency = lookup(token)
 
-    try:
-        return "KNOWN" if int(frequency) > 0 else "UNK"
-    except (TypeError, ValueError):
-        return "UNK"
+    if isinstance(frequency, int) and frequency > 0:
+        return "KNOWN"
+
+    return "UNK"
 
 
 __all__ = ["tag"]

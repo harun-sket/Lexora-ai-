@@ -1,0 +1,21 @@
+==========================================================================================
+LEXORA LONG TOKEN STRESS TEST
+==========================================================================================
+
+🚀 STARTING 1K CHARACTER TOKEN TEST
+1K     | chars=    1,000 | time=   0.062s | PASS 🟢
+
+🚀 STARTING 10K CHARACTER TOKEN TEST
+10K    | chars=   10,000 | time=   0.000s | PASS 🟢
+
+🚀 STARTING 100K CHARACTER TOKEN TEST
+100K   | chars=  100,000 | time=   0.000s | PASS 🟢
+
+🚀 STARTING 500K CHARACTER TOKEN TEST
+500K   | chars=  500,000 | time=   0.002s | PASS 🟢
+
+🚀 STARTING 1M CHARACTER TOKEN TEST
+1M     | chars=1,000,000 | time=   0.002s | PASS 🟢
+==========================================================================================
+LONG TOKEN STRESS TEST COMPLETE
+==========================================================================================

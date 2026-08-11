@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Lexora — Pricing</title>
+
+<style>
+:root{
+  --bg:#050608;
+  --text:#f5f5f5;
+  --muted:#858890;
+  --dim:#555962;
+  --line:rgba(255,255,255,.075);
+  --line2:rgba(255,255,255,.14);
+  --soft:rgba(255,255,255,.035);
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:#050608;
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,
+    BlinkMacSystemFont,"Segoe UI",sans-serif;
+  overflow-x:hidden;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:radial-gradient(
+    800px 450px at 50% -10%,
+    rgba(255,255,255,.075),
+    transparent 70%
+  );
+  z-index:-2;
+}
+
+body:after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.15;
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025) 1px,
+      transparent 1px
+    );
+  background-size:55px 55px;
+  mask-image:linear-gradient(to bottom,black,transparent 90%);
+  z-index:-1;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button{font:inherit}
+
+
+/* =====================================================
+   NAV
+===================================================== */
+
+.nav{
+  position:sticky;
+  top:0;
+  z-index:100;
+  height:72px;
+  border-bottom:1px solid var(--line);
+  background:rgba(5,6,8,.86);
+  backdrop-filter:blur(18px);
+}
+
+.nav-inner{
+  width:min(1240px,calc(100% - 40px));
+  height:100%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:-.06em;
+}
+
+.logo span{
+  margin-left:9px;
+  color:#555962;
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.12em;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:28px;
+}
+
+.nav-links a{
+  color:#62656d;
+  font-size:10px;
+  font-weight:600;
+  transition:.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+  color:white;
+}
+
+.nav-cta{
+  padding:9px 13px;
+  border:1px solid var(--line2);
+  border-radius:7px;
+  color:#aaa;
+  font-size:9px;
+}
+
+.nav-cta:hover{
+  color:white;
+  background:var(--soft);
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+  width:min(1000px,calc(100% - 40px));
+  margin:auto;
+  padding:105px 0 60px;
+  text-align:center;
+}
+
+.kicker{
+  display:inline-flex;
+  padding:7px 11px;
+  border:1px solid var(--line2);
+  border-radius:999px;
+  color:#686b73;
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.18em;
+  background:var(--soft);
+}
+
+.hero h1{
+  margin:26px auto 20px;
+  max-width:900px;
+  font-size:clamp(48px,8vw,90px);
+  line-height:.9;
+  letter-spacing:-.085em;
+  font-weight:850;
+}
+
+.hero h1 span{
+  display:block;
+  color:#777a82;
+}
+
+.hero p{
+  max-width:620px;
+  margin:auto;
+  color:#7c7f87;
+  font-size:13px;
+  line-height:1.8;
+}
+
+
+/* =====================================================
+   BILLING
+===================================================== */
+
+.billing{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin:0 auto 45px;
+}
+
+.billing-text{
+  color:#555962;
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.12em;
+}
+
+.toggle{
+  position:relative;
+  width:48px;
+  height:25px;
+  padding:0;
+  border:1px solid var(--line2);
+  border-radius:999px;
+  background:#101216;
+  cursor:pointer;
+}
+
+.toggle-dot{
+  position:absolute;
+  top:3px;
+  left:3px;
+  width:17px;
+  height:17px;
+  border-radius:50%;
+  background:#ddd;
+  transition:.2s;
+}
+
+.toggle.yearly .toggle-dot{
+  left:26px;
+}
+
+.save{
+  padding:4px 7px;
+  border:1px solid var(--line2);
+  border-radius:5px;
+  color:#777a82;
+  font-family:monospace;
+  font-size:6px;
+}
+
+
+/* =====================================================
+   PRICING GRID
+===================================================== */
+
+.pricing{
+  width:min(1180px,calc(100% - 40px));
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+
+/* =====================================================
+   PLAN
+===================================================== */
+
+.plan{
+  position:relative;
+  min-height:565px;
+  padding:27px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(16,18,23,.82),
+      rgba(7,8,11,.82)
+    );
+  transition:.2s;
+}
+
+.plan:hover{
+  transform:translateY(-4px);
+  border-color:rgba(255,255,255,.15);
+}
+
+.plan.featured{
+  border-color:rgba(255,255,255,.22);
+}
+
+.plan.locked{
+  opacity:.62;
+}
+
+.plan.locked:hover{
+  transform:none;
+  border-color:var(--line);
+}
+
+.number{
+  color:#42454c;
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.1em;
+}
+
+.name{
+  margin-top:27px;
+  font-size:19px;
+  font-weight:800;
+  letter-spacing:-.045em;
+}
+
+.description{
+  min-height:55px;
+  margin-top:9px;
+  color:#696c74;
+  font-size:9px;
+  line-height:1.7;
+}
+
+
+/* =====================================================
+   COMING SOON BADGE
+===================================================== */
+
+.coming-soon{
+  position:absolute;
+  top:17px;
+  right:17px;
+
+  padding:6px 8px;
+
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:5px;
+
+  background:rgba(255,255,255,.025);
+
+  color:#777a82;
+
+  font-family:monospace;
+  font-size:6px;
+  letter-spacing:.12em;
+}
+
+.popular{
+  position:absolute;
+  top:17px;
+  right:17px;
+
+  padding:5px 7px;
+
+  border:1px solid var(--line2);
+  border-radius:5px;
+
+  color:#bbbfc5;
+
+  font-family:monospace;
+  font-size:6px;
+  letter-spacing:.1em;
+}
+
+
+/* =====================================================
+   PRICE
+===================================================== */
+
+.price{
+  margin-top:28px;
+  font-size:43px;
+  font-weight:850;
+  letter-spacing:-.07em;
+}
+
+.price small{
+  color:#5e6169;
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0;
+}
+
+.yearly{
+  display:none;
+}
+
+body.yearly .monthly{
+  display:none;
+}
+
+body.yearly .yearly{
+  display:inline;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.plan-button{
+  width:100%;
+  height:43px;
+  margin-top:23px;
+
+  border:1px solid var(--line2);
+  border-radius:7px;
+
+  background:var(--soft);
+  color:#aaa;
+
+  font-size:9px;
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.plan-button:hover{
+  color:white;
+  background:rgba(255,255,255,.08);
+}
+
+.free-button{
+  border-color:#eee;
+  background:#f1f1f1;
+  color:#08090b;
+}
+
+.free-button:hover{
+  background:white;
+  color:#08090b;
+}
+
+
+/* LOCKED BUTTON */
+
+.locked-button{
+  cursor:not-allowed;
+
+  border-color:rgba(255,255,255,.065);
+
+  background:
+    rgba(255,255,255,.018);
+
+  color:#555962;
+}
+
+.locked-button:hover{
+  background:
+    rgba(255,255,255,.018);
+
+  color:#555962;
+}
+
+
+/* =====================================================
+   FEATURES
+===================================================== */
+
+.features{
+  margin-top:30px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+}
+
+.feature-label{
+  margin-bottom:14px;
+  color:#464950;
+  font-family:monospace;
+  font-size:6px;
+  letter-spacing:.15em;
+}
+
+.feature{
+  display:flex;
+  gap:9px;
+  margin:11px 0;
+  color:#777a82;
+  font-size:9px;
+  line-height:1.45;
+}
+
+.check{
+  color:#aaa;
+  font-family:monospace;
+}
+
+
+/* =====================================================
+   INDIA MESSAGE
+===================================================== */
+
+.india{
+  width:min(900px,calc(100% - 40px));
+  margin:100px auto 0;
+  padding:55px 30px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  text-align:center;
+}
+
+.india-label{
+  color:#4d5057;
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.18em;
+}
+
+.india h2{
+  margin:15px auto;
+  max-width:700px;
+  font-size:clamp(25px,4vw,42px);
+  line-height:1;
+  letter-spacing:-.06em;
+}
+
+.india p{
+  max-width:600px;
+  margin:auto;
+  color:#6f727a;
+  font-size:10px;
+  line-height:1.8;
+}
+
+
+/* =====================================================
+   COMPARISON
+===================================================== */
+
+.compare{
+  width:min(1180px,calc(100% - 40px));
+  margin:100px auto 0;
+}
+
+.compare-kicker{
+  color:#4d5057;
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.17em;
+}
+
+.compare h2{
+  margin:9px 0 22px;
+  font-size:28px;
+  letter-spacing:-.05em;
+}
+
+.table-wrap{
+  overflow-x:auto;
+  border:1px solid var(--line);
+  border-radius:13px;
+}
+
+table{
+  width:100%;
+  min-width:720px;
+  border-collapse:collapse;
+}
+
+th,
+td{
+  padding:16px 18px;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+}
+
+th{
+  color:#555962;
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.1em;
+}
+
+td{
+  color:#777a82;
+  font-size:9px;
+}
+
+td:first-child{
+  color:#c6c8cc;
+}
+
+tr:last-child td{
+  border-bottom:0;
+}
+
+
+/* =====================================================
+   FAQ
+===================================================== */
+
+.faq{
+  width:min(760px,calc(100% - 40px));
+  margin:100px auto;
+}
+
+.faq-label{
+  color:#4d5057;
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.17em;
+}
+
+.faq h2{
+  margin:9px 0 25px;
+  font-size:29px;
+  letter-spacing:-.05em;
+}
+
+details{
+  border-top:1px solid var(--line);
+}
+
+details:last-child{
+  border-bottom:1px solid var(--line);
+}
+
+summary{
+  padding:20px 0;
+  color:#d3d5d8;
+  font-size:11px;
+  cursor:pointer;
+  list-style:none;
+}
+
+summary::-webkit-details-marker{
+  display:none;
+}
+
+summary:after{
+  content:"+";
+  float:right;
+  color:#555962;
+  font-family:monospace;
+}
+
+details[open] summary:after{
+  content:"−";
+}
+
+.answer{
+  padding:0 35px 20px 0;
+  color:#696c74;
+  font-size:10px;
+  line-height:1.8;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+  width:min(1180px,calc(100% - 40px));
+  margin:0 auto 35px;
+  padding-top:20px;
+  border-top:1px solid var(--line);
+
+  display:flex;
+  justify-content:space-between;
+
+  color:#41444b;
+
+  font-family:monospace;
+  font-size:7px;
+  letter-spacing:.08em;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:1050px){
+
+  .pricing{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:700px){
+
+  .nav-links{
+    display:none;
+  }
+
+  .hero{
+    padding-top:70px;
+  }
+
+  .hero h1{
+    font-size:53px;
+  }
+
+  .pricing{
+    grid-template-columns:1fr;
+  }
+
+  .plan{
+    min-height:auto;
+  }
+
+  .description{
+    min-height:auto;
+  }
+
+  .footer{
+    flex-direction:column;
+    gap:9px;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAV
+===================================================== -->
+
+<nav class="nav">
+
+<div class="nav-inner">
+
+<a href="/" class="logo">
+LEXORA
+<span>PRICING</span>
+</a>
+
+<div class="nav-links">
+
+<a href="/">Home</a>
+
+<a href="/docs.html">Docs</a>
+
+<a href="/api.html">API</a>
+
+<a
+  href="/pricing.html"
+  class="active"
+>
+Pricing
+</a>
+
+</div>
+
+<a
+  href="/auth.html"
+  class="nav-cta"
+>
+START BUILDING →
+</a>
+
+</div>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+<div class="kicker">
+MADE FOR INDIA
+</div>
+
+<h1>
+Language intelligence.
+<span>Built for India.</span>
+</h1>
+
+<p>
+Building India's language intelligence
+layer for the future of AI.
+Start free today. Paid infrastructure
+is coming soon.
+</p>
+
+</section>
+
+
+<!-- =====================================================
+     BILLING
+===================================================== -->
+
+<div class="billing">
+
+<span class="billing-text">
+MONTHLY
+</span>
+
+<button
+  id="toggle"
+  class="toggle"
+  type="button"
+  aria-label="Toggle yearly pricing"
+>
+
+<span class="toggle-dot"></span>
+
+</button>
+
+<span class="billing-text">
+YEARLY
+</span>
+
+<span class="save">
+COMING SOON
+</span>
+
+</div>
+
+
+<!-- =====================================================
+     PRICING
+===================================================== -->
+
+<section class="pricing">
+
+
+<!-- =====================================================
+     FREE — ACTIVE
+===================================================== -->
+
+<article class="plan featured">
+
+<div class="number">
+01 / AVAILABLE NOW
+</div>
+
+<div class="name">
+Free
+</div>
+
+<div class="description">
+Explore Lexora and start building
+with India's language intelligence
+infrastructure.
+</div>
+
+<div class="price">
+
+<span class="monthly">
+₹0 <small>/ month</small>
+</span>
+
+<span class="yearly">
+₹0 <small>/ month</small>
+</span>
+
+</div>
+
+<button
+  class="plan-button free-button"
+  onclick="startFree()"
+>
+Start free
+</button>
+
+<div class="features">
+
+<div class="feature-label">
+AVAILABLE NOW
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Lexora Workspace
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Core intelligence access
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Starter processing limits
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Developer documentation
+</div>
+
+</div>
+
+</article>
+
+
+<!-- =====================================================
+     STARTER — LOCKED
+===================================================== -->
+
+<article class="plan locked">
+
+<div class="coming-soon">
+COMING SOON
+</div>
+
+<div class="number">
+02 / BUILDER
+</div>
+
+<div class="name">
+Starter
+</div>
+
+<div class="description">
+Higher limits and developer
+infrastructure for growing projects.
+</div>
+
+<div class="price">
+
+<span class="monthly">
+₹499 <small>/ month</small>
+</span>
+
+<span class="yearly">
+₹399 <small>/ month</small>
+</span>
+
+</div>
+
+<button
+  class="plan-button locked-button"
+  type="button"
+  disabled
+>
+COMING SOON
+</button>
+
+<div class="features">
+
+<div class="feature-label">
+LOCKED
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Higher processing limits
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Intelligence API
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Dataset processing
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Usage analytics
+</div>
+
+</div>
+
+</article>
+
+
+<!-- =====================================================
+     PRO — LOCKED
+===================================================== -->
+
+<article class="plan locked">
+
+<div class="coming-soon">
+COMING SOON
+</div>
+
+<div class="number">
+03 / PRODUCTION
+</div>
+
+<div class="name">
+Pro
+</div>
+
+<div class="description">
+Production-grade language intelligence
+for teams and serious applications.
+</div>
+
+<div class="price">
+
+<span class="monthly">
+₹1,499 <small>/ month</small>
+</span>
+
+<span class="yearly">
+₹1,199 <small>/ month</small>
+</span>
+
+</div>
+
+<button
+  class="plan-button locked-button"
+  type="button"
+  disabled
+>
+COMING SOON
+</button>
+
+<div class="features">
+
+<div class="feature-label">
+LOCKED
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Everything in Starter
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Production API limits
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Advanced datasets
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Advanced analytics
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Priority support
+</div>
+
+</div>
+
+</article>
+
+
+<!-- =====================================================
+     API — LOCKED
+===================================================== -->
+
+<article class="plan locked">
+
+<div class="coming-soon">
+COMING SOON
+</div>
+
+<div class="number">
+04 / INFRASTRUCTURE
+</div>
+
+<div class="name">
+API
+</div>
+
+<div class="description">
+Use Lexora as the language intelligence
+layer inside your own applications.
+</div>
+
+<div class="price">
+Custom
+</div>
+
+<button
+  class="plan-button locked-button"
+  type="button"
+  disabled
+>
+COMING SOON
+</button>
+
+<div class="features">
+
+<div class="feature-label">
+LOCKED
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Production API infrastructure
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Custom processing limits
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Production integrations
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Custom intelligence workflows
+</div>
+
+<div class="feature">
+<span class="check">+</span>
+Dedicated support
+</div>
+
+</div>
+
+</article>
+
+
+</section>
+
+
+<!-- =====================================================
+     INDIA
+===================================================== -->
+
+<section class="india">
+
+<div class="india-label">
+THE LEXORA MISSION
+</div>
+
+<h2>
+Building India's language intelligence
+layer for the future of AI.
+</h2>
+
+<p>
+India speaks across languages, scripts
+and contexts. Lexora is being built to
+give the next generation of Indian
+applications the intelligence
+infrastructure to understand them.
+</p>
+
+</section>
+
+
+<!-- =====================================================
+     COMPARISON
+===================================================== -->
+
+<section class="compare">
+
+<div class="compare-kicker">
+PLAN STATUS
+</div>
+
+<h2>
+Available today. More coming.
+</h2>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>CAPABILITY</th>
+<th>FREE</th>
+<th>STARTER</th>
+<th>PRO</th>
+<th>API</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>Lexora Workspace</td>
+<td>✓</td>
+<td>COMING SOON</td>
+<td>COMING SOON</td>
+<td>COMING SOON</td>
+</tr>
+
+<tr>
+<td>Intelligence API</td>
+<td>Limited</td>
+<td>COMING SOON</td>
+<td>COMING SOON</td>
+<td>COMING SOON</td>
+</tr>
+
+<tr>
+<td>Dataset processing</td>
+<td>—</td>
+<td>COMING SOON</td>
+<td>COMING SOON</td>
+<td>COMING SOON</td>
+</tr>
+
+<tr>
+<td>Usage analytics</td>
+<td>—</td>
+<td>COMING SOON</td>
+<td>COMING SOON</td>
+<td>COMING SOON</td>
+</tr>
+
+<tr>
+<td>Production infrastructure</td>
+<td>—</td>
+<td>—</td>
+<td>COMING SOON</td>
+<td>COMING SOON</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     FAQ
+===================================================== -->
+
+<section class="faq">
+
+<div class="faq-label">
+QUESTIONS
+</div>
+
+<h2>
+Before you build.
+</h2>
+
+<details>
+
+<summary>
+Can I use Lexora right now?
+</summary>
+
+<div class="answer">
+Yes. The Free plan is available now.
+Paid plans are currently being built
+and will become available in future.
+</div>
+
+</details>
+
+
+<details>
+
+<summary>
+Why are the paid plans locked?
+</summary>
+
+<div class="answer">
+We're keeping Lexora focused while the
+platform is being built. Starter, Pro and
+API infrastructure will be released when
+they are ready for production use.
+</div>
+
+</details>
+
+
+<details>
+
+<summary>
+Will my Free workspace stop working?
+</summary>
+
+<div class="answer">
+No. The Free plan remains the current
+entry point for building and exploring
+Lexora.
+</div>
+
+</details>
+
+
+<details>
+
+<summary>
+When will the API launch?
+</summary>
+
+<div class="answer">
+The Lexora API is currently marked
+Coming Soon while the production
+infrastructure is being prepared.
+</div>
+
+</details>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+<span>
+LEXORA · INDIA
+</span>
+
+<span>
+BUILDING INDIA'S LANGUAGE INTELLIGENCE LAYER
+</span>
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   BILLING TOGGLE
+   Pricing toggle is visual only while paid
+   plans are unavailable.
+===================================================== */
+
+const toggle =
+  document.getElementById("toggle");
+
+toggle.addEventListener(
+  "click",
+  () => {
+
+    document.body.classList.toggle(
+      "yearly"
+    );
+
+    toggle.classList.toggle(
+      "yearly"
+    );
+
+  }
+);
+
+
+/* =====================================================
+   ONLY FREE PLAN IS ACTIVE
+===================================================== */
+
+function startFree(){
+
+  window.location.href =
+    "/auth.html";
+
+}
+
+</script>
+
+</body>
+</html>
